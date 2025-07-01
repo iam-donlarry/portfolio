@@ -1,0 +1,230 @@
+/* Contact Section */
+.contact {
+  padding: 100px 0;
+  background-color: #f8f9fa;
+}
+
+.contact .section-title h2 {
+  color: var(--dark-color);
+}
+
+.contact .section-title p {
+  margin-bottom: 40px;
+  color: #777;
+}
+
+.contact .info {
+  width: 100%;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+.contact .info i {
+  font-size: 20px;
+  color: var(--primary-color);
+  float: left;
+  width: 44px;
+  height: 44px;
+  background: rgba(52, 183, 167, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+}
+
+.contact .info h4 {
+  padding: 0 0 0 60px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: var(--dark-color);
+}
+
+.contact .info p {
+  padding: 0 0 0 60px;
+  margin-bottom: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.contact .info .address,
+.contact .info .email,
+.contact .info .phone {
+  margin-bottom: 25px;
+}
+
+.contact .info .social-links {
+  padding-left: 60px;
+}
+
+.contact .info .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #f3f3f3;
+  color: var(--dark-color);
+  line-height: 1;
+  padding: 10px 0;
+  border-radius: 50%;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.contact .info .social-links a:hover {
+  background: var(--primary-color);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.contact .php-email-form {
+  width: 100%;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+.contact .php-email-form .form-group {
+  margin-bottom: 20px;
+}
+
+.contact .php-email-form label {
+  padding-bottom: 8px;
+  font-weight: 600;
+  color: var(--dark-color);
+  display: block;
+}
+
+.contact .php-email-form input,
+.contact .php-email-form textarea {
+  border-radius: 4px;
+  box-shadow: none;
+  font-size: 14px;
+  transition: var(--transition);
+  border: 1px solid #ddd;
+  width: 100%;
+  padding: 10px 15px;
+}
+
+.contact .php-email-form input:focus,
+.contact .php-email-form textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(52, 183, 167, 0.25);
+  outline: 0;
+}
+
+.contact .php-email-form textarea {
+  min-height: 150px;
+  resize: none;
+}
+
+.contact .php-email-form button[type="submit"] {
+  background: var(--primary-color);
+  border: 0;
+  padding: 10px 30px;
+  color: #fff;
+  transition: var(--transition);
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.contact .php-email-form button[type="submit"]:hover {
+  background: #3dc8b7;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact .php-email-form button[type="submit"]:disabled {
+  background: #a8e6df;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.contact .php-email-form .sent-message {
+  display: block;
+  color: #28a745;
+  background: #d4edda;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.contact .php-email-form .error-message {
+  display: block;
+  color: #dc3545;
+  background: #f8d7da;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+  .contact {
+    padding: 60px 0;
+  }
+  
+  .contact .info {
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .contact .php-email-form {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact .info h4,
+  .contact .info p,
+  .contact .info .social-links {
+    padding-left: 50px;
+  }
+  
+  .contact .info i {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  
+  .contact .php-email-form button[type="submit"] {
+    width: 100%;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact .info,
+.contact .php-email-form {
+  animation: fadeIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.contact .php-email-form {
+  animation-delay: 0.2s;
+}
