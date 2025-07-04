@@ -148,8 +148,8 @@ const Header = (props) => {
             isOpen={isOpen}
             as={motion.div}
             variants={containerVariants}
-            initial="hidden"
-            animate={isOpen ? 'show' : 'hidden'}
+            initial={false}
+            animate={window.innerWidth <= 900 ? (isOpen ? 'show' : 'hidden') : 'show'}
           >
             <ul>
               {navLinks.map((link) => (
@@ -162,7 +162,7 @@ const Header = (props) => {
                     offset={-80}
                     duration={500}
                     activeClass="active"
-                    className={activeSection === link.to ? 'active' : ''}
+                    isActive={() => activeSection === link.to}
                     onClick={() => {
                       safeSetActiveSection(link.to);
                       setIsOpen(false);

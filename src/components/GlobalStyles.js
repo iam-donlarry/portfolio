@@ -36,12 +36,20 @@ const GlobalStyles = createGlobalStyle`
   }
 
   /* Typography */
-  h1, h2, h3, h4, h5, h6 {
+  h1, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 1rem;
     color: var(--color-text-primary);
+  }
+  
+  h2 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #000000; /* Force black color */
   }
 
   h1 { font-size: 3rem; }

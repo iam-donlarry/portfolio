@@ -65,7 +65,7 @@ const About = ({ setActiveSection }) => {
       <div className="tab-pane active">
         <h3>Who am I?</h3>
         <p>I'm a passionate Frontend Developer with 2+ years of experience in creating beautiful and functional web applications. I specialize in React, JavaScript, and modern web technologies.</p>
-        <p>My goal is to build exceptional digital experiences that make a difference. I love turning complex problems into simple, beautiful, and intuitive solutions.</p>
+        <p>My goal is to build exceptional digital experiences that make a difference.</p>
         <div className="highlight-box">
           <FaRocket className="highlight-icon" />
           <p>Currently working on exciting projects that challenge me to grow every day.</p>

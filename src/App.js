@@ -7,7 +7,7 @@ import { theme } from './theme';
 import GlobalStyles from './components/GlobalStyles';
 
 // Components
-import Header from './components/Header/Header';
+import CustomNav from './components/CustomNav/CustomNav';
 import About from './components/About/About';
 import Resume from './components/Resume/Resume';
 import Portfolio from './components/Portfolio/Portfolio';
@@ -214,13 +214,7 @@ const App = () => {
           <GlobalStyles />
           <div className="App">
             <ScrollToTop />
-            <Header 
-              key="main-header"
-              isScrolled={isScrolled}
-              toggleTheme={toggleTheme}
-              activeSection={activeSection}
-              setActiveSection={setActiveSection}
-            />
+            <CustomNav />
             <main>
               <section id="about">
                 <About 

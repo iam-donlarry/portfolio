@@ -35,6 +35,11 @@ export const Navbar = styled.nav`
   max-width: ${({ theme }) => (theme.breakpoints && theme.breakpoints.values && theme.breakpoints.values.lg) ? 
     `${theme.breakpoints.values.lg}px` : '1200px'};
   margin: 0 auto;
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints?.values?.md || 900}px) {
+    justify-content: space-between;
+    width: 100%;
+  }
 `;
 
 export const Logo = styled.div`
@@ -55,18 +60,41 @@ export const NavLinks = styled.div`
   align-items: center;
   gap: ${spacing(4)};
   
+  /* Desktop styles - always visible */
+  @media (min-width: ${({ theme }) => (theme.breakpoints?.values?.md || 900) + 1}px) {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    flex-direction: row !important;
+  }
+  
+  /* Mobile styles */
   @media (max-width: ${({ theme }) => theme.breakpoints?.values?.md || 900}px) {
     position: fixed;
     top: ${spacing(16)};
     left: 0;
     width: 100%;
+    height: calc(100vh - ${spacing(16)});
     background-color: ${({ theme }) => theme.palette?.background?.paper || '#ffffff'};
     flex-direction: column;
     padding: ${spacing(4)};
     box-shadow: ${({ theme }) => theme.shadows?.[4] || '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'};
-    transform: ${({ isOpen }) => (isOpen ? 'translateY(0)' : 'translateY(-150%)')};
-    transition: transform 0.3s ease-in-out;
+    transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(-100%)')};
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     z-index: ${({ theme }) => theme.zIndex?.modal || 1300};
+    justify-content: center;
+    align-items: center;
+    gap: ${spacing(8)};
+    opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
+    visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
+    pointer-events: ${({ isOpen }) => (isOpen ? 'auto' : 'none')};
   }
 `;
 
@@ -84,6 +112,7 @@ export const NavLink = styled(Link)`
     ${({ theme }) => 
       theme.transition?.timing?.easeInOut || 'cubic-bezier(0.4, 0, 0.2, 1)'};
   cursor: pointer;
+  font-size: 1.1rem;
   
   &:hover {
     color: ${({ theme }) => theme.palette?.primary?.main || '#5271ff'};
@@ -94,28 +123,58 @@ export const NavLink = styled(Link)`
   @media (max-width: ${({ theme }) => 
     (theme.breakpoints?.values?.md || 900)}px) {
     width: 100%;
+    max-width: 300px;
     text-align: center;
     padding: ${spacing(3)} ${spacing(4)};
+    font-size: 1.25rem;
+    margin: ${spacing(1)} 0;
+    border: 1px solid ${({ theme }) => theme.palette?.divider || '#e2e8f0'};
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
   }
 `;
 
 export const MobileMenuButton = styled.button`
   display: none;
-  background: none;
+  background: ${({ theme }) => theme.palette?.primary?.main || '#5271ff'};
   border: none;
-  color: ${({ theme }) => theme.palette?.text?.primary || '#2d3748'};
-  font-size: ${({ theme }) => theme.typography?.h5?.fontSize || '1.25rem'};
+  color: white;
+  font-size: 1.5rem;
   cursor: pointer;
-  padding: ${({ theme }) => (theme.spacing && theme.spacing[2]) ? theme.spacing[2] : '8px'};
-  border-radius: 50%;
-  transition: background-color 0.2s ease;
+  padding: ${spacing(2)} ${spacing(3)};
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  z-index: ${({ theme }) => theme.zIndex?.modal + 1 || 1400};
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
   &:hover {
-    background-color: ${({ theme }) => theme.palette?.action?.hover || 'rgba(0, 0, 0, 0.04)'};
+    background: ${({ theme }) => theme.palette?.primary?.dark || '#3a5ef5'};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
   
   @media (max-width: ${({ theme }) => theme.breakpoints?.values?.md || 900}px) {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: ${spacing(2)};
+    right: ${spacing(2)};
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    z-index: ${({ theme }) => theme.zIndex?.modal + 1 || 1400};
   }
 `;
 
