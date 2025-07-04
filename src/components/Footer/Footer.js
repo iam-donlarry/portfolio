@@ -61,7 +61,7 @@ const Footer = () => {
         </div>
         
         <div className="credits">
-          Designed with ❤️ by <a href="#">Quadri Adekunle</a>
+          Designed with ❤️ by <a href="#home" className="scroll-to">Quadri Adekunle</a>
         </div>
       </div>
     </footer>

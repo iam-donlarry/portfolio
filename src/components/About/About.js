@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaGithub, FaLinkedin, FaTwitter, FaGlobe, FaBirthdayCake, FaGraduationCap, FaBriefcase, FaCode, FaTools, FaRocket } from 'react-icons/fa';
+import { FaUser, FaPhone, FaMapMarkerAlt, FaGithub, FaLinkedin, FaTwitter, FaGlobe, FaGraduationCap, FaBriefcase, FaCode, FaTools, FaRocket } from 'react-icons/fa';
 import './About.css';
 
 const About = ({ setActiveSection }) => {
@@ -53,7 +53,6 @@ const About = ({ setActiveSection }) => {
     { icon: <FaUser />, label: 'Name', value: 'Quadri Adekunle' },
     { icon: <FaGraduationCap />, label: 'Education', value: 'HND Computer Science' },
     { icon: <FaBriefcase />, label: 'Experience', value: '3+ Years' },
-    { icon: <FaEnvelope />, label: 'Email', value: 'adekunlequadri3@gmail.com' },
     { icon: <FaPhone />, label: 'Phone', value: '+234 704 227 7326' },
     { icon: <FaMapMarkerAlt />, label: 'Location', value: 'Lagos, Nigeria' },
     { icon: <FaGlobe />, label: 'Website', value: 'quadriadekunle.netlify.app' },
@@ -61,20 +60,11 @@ const About = ({ setActiveSection }) => {
 
   const [activeTab, setActiveTab] = useState('about');
 
-  const tabVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.4, ease: 'easeOut' }
-    }
-  };
-
   const tabContent = {
     about: (
       <div className="tab-pane active">
         <h3>Who am I?</h3>
-        <p>I'm a passionate Frontend Developer with 5+ years of experience in creating beautiful and functional web applications. I specialize in React, JavaScript, and modern web technologies.</p>
+        <p>I'm a passionate Frontend Developer with 2+ years of experience in creating beautiful and functional web applications. I specialize in React, JavaScript, and modern web technologies.</p>
         <p>My goal is to build exceptional digital experiences that make a difference. I love turning complex problems into simple, beautiful, and intuitive solutions.</p>
         <div className="highlight-box">
           <FaRocket className="highlight-icon" />
@@ -178,13 +168,13 @@ const About = ({ setActiveSection }) => {
               />
               <div className="profile-overlay">
                 <div className="social-links">
-                  <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="social-icon">
+                  <a href="https://github.com/iam-donlarry" target="_blank" rel="noopener noreferrer" className="social-icon">
                     <FaGithub />
                   </a>
-                  <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" className="social-icon">
+                  <a href="https://linkedin.com/in/adekunle-quadri-920038213" target="_blank" rel="noopener noreferrer" className="social-icon">
                     <FaLinkedin />
                   </a>
-                  <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" className="social-icon">
+                  <a href="https://twitter.com/Coredrii" target="_blank" rel="noopener noreferrer" className="social-icon">
                     <FaTwitter />
                   </a>
                 </div>

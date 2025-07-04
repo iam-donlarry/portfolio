@@ -20,13 +20,13 @@ const scrollToTop = () => {
 };
 
 // Listen for route changes and scroll to top
-window.addEventListener('hashchange', scrollToTop);
+window.addEventListener('popstate', scrollToTop);
 
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-        <App />
+        <App onRouteChange={scrollToTop} />
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>

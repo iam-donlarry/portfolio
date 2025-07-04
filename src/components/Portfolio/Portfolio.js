@@ -94,6 +94,7 @@ const Portfolio = ({ setActiveSection }) => {
 
   return (
     <section id="portfolio" className="portfolio-section" ref={ref}>
+    
       <div className="container">
         <motion.div 
           className="section-header"

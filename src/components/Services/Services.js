@@ -11,7 +11,6 @@ const Services = ({ setActiveSection }) => {
   });
 
   const [hoveredId, setHoveredId] = useState(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e, id) => {
     if (hoveredId === id) {
@@ -20,7 +19,6 @@ const Services = ({ setActiveSection }) => {
       const y = e.clientY - rect.top;
       e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
       e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-      setMousePosition({ x, y });
     }
   };
 
