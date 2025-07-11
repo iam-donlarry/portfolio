@@ -9,8 +9,8 @@ const CustomNav = () => {
   const navLinks = [
     { to: 'about', text: 'About' },
     { to: 'resume', text: 'Resume' },
-    { to: 'portfolio', text: 'Portfolio' },
     { to: 'services', text: 'Services' },
+    { to: 'portfolio', text: 'Portfolio' },
     { to: 'contact', text: 'Contact' },
   ];
 
@@ -59,7 +59,7 @@ const CustomNav = () => {
         offset={-80}
         onClick={handleNavClick}
       >
-        
+        <img src="/logo.png"/>
       </Logo>
 
       <MobileMenuButton onClick={toggleMenu} aria-label="Toggle menu">

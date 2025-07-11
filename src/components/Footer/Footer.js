@@ -8,17 +8,17 @@ const Footer = () => {
   const socialLinks = [
     {
       icon: <FaGithub />,
-      url: 'https://github.com/yourusername',
+      url: 'https://github.com/iam-donlarry',
       name: 'GitHub'
     },
     {
       icon: <FaLinkedin />,
-      url: 'https://linkedin.com/in/yourprofile',
+      url: 'https://linkedin.com/in/adekunle-quadri-920038213',
       name: 'LinkedIn'
     },
     {
       icon: <FaTwitter />,
-      url: 'https://twitter.com/yourhandle',
+      url: 'https://twitter.com/Coredrii',
       name: 'Twitter'
     },
     {

@@ -229,16 +229,16 @@ const App = () => {
                   setActiveSection={setActiveSection} 
                 />
               </section>
-              
-              <section id="portfolio">
-                <Portfolio 
+
+              <section id="services">
+                <Services 
                   activeSection={activeSection} 
                   setActiveSection={setActiveSection} 
                 />
               </section>
               
-              <section id="services">
-                <Services 
+              <section id="portfolio">
+                <Portfolio 
                   activeSection={activeSection} 
                   setActiveSection={setActiveSection} 
                 />

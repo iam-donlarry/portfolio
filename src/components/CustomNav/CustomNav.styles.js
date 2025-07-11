@@ -16,17 +16,16 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled(ScrollLink)`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.palette?.text?.primary || '#333333'};
-  text-decoration: none;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  transition: color 0.3s ease;
 
-  &:hover {
-    color: ${({ theme }) => theme.palette?.primary?.main || '#4a6cf7'};
+  img {
+    height: 40px; /* adjust as needed */
+    width: auto;
   }
 `;
+
 
 const NavMenu = styled.ul`
   display: flex;

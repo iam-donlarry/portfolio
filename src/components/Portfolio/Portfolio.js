@@ -2,58 +2,64 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
+import alterverse from '../../assets/images/porfolio/alterverse.jpeg';
+import construction from '../../assets/images/porfolio/construction.jpeg';
+import homeland from '../../assets/images/porfolio/homeland.jpeg';
+import stoke from '../../assets/images/porfolio/stoke.jpeg';
+import workpod from '../../assets/images/porfolio/workpod.jpeg';
+
 import './Portfolio.css';
 
 const projects = [
   {
     id: 1,
-    title: 'E-commerce Website',
-    description: 'A full-stack e-commerce platform with user authentication, product catalog, and payment integration.',
-    image: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80',
+    title: 'Manufacturing Website',
+    description: 'Responsive site designed for a manufacturing and services company, showcasing their factories, products, and team with clean navigation and corporate style.',
+    image: alterverse,
     tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-    category: 'Full Stack',
+    category: 'Frontend',
     github: 'https://github.com/username/ecommerce',
-    demo: 'https://ecommerce-demo.com',
+    demo: 'https://bayehomessolutions.com.ng/alterverse/production',
   },
   {
     id: 2,
-    title: 'Task Management App',
-    description: 'A task management application with drag-and-drop functionality and real-time updates.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80',
+    title: 'Construction Website',
+    description: ' Responsive construction site for Alterverse Group, highlighting real estate development, material supply, and estate planning with sleek design and easy navigation.',
+    image: construction,
     tags: ['React', 'Firebase', 'Material-UI'],
-    category: 'Web App',
+    category: 'Frontend',
     github: 'https://github.com/username/task-app',
-    demo: 'https://task-app-demo.com',
+    demo: 'https://bayehomessolutions.com.ng/alterverse/construction',
   },
   {
     id: 3,
-    title: 'Weather Dashboard',
-    description: 'A weather application that displays current weather and forecast using a weather API.',
-    image: 'https://images.unsplash.com/photo-1601134467661-3e77560260cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80',
+    title: 'Real Estate Website',
+    description: 'A real estate platform designed to browse, rent and buy properties, featuring agent profiles, and a user friendly property listing interface',
+    image: homeland,
     tags: ['JavaScript', 'API', 'CSS3'],
-    category: 'Frontend',
+    category: 'Web App',
     github: 'https://github.com/username/weather-app',
-    demo: 'https://weather-app-demo.com',
+    demo: 'https://bayehomessolutions.com.ng/bayehomes/homeland/',
   },
   {
     id: 4,
-    title: 'Portfolio Website',
-    description: 'A personal portfolio website to showcase projects and skills with modern design and animations.',
-    image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80',
+    title: 'Shipping & Logistics',
+    description: 'A responsive design built for a maritime logistics firm showcasing services and professionalism with clean visuals and easy navigation',
+    image: stoke,
     tags: ['React', 'Bootstrap', 'CSS3'],
     category: 'Frontend',
     github: 'https://github.com/username/portfolio',
-    demo: 'https://my-portfolio-demo.com',
+    demo: 'https://stoke-seagroup.com',
   },
   {
     id: 5,
-    title: 'Restaurant Website',
-    description: 'A responsive restaurant website with online ordering system and menu management.',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80',
+    title: 'Workspace Booking',
+    description: 'A Responsive workspace booking site for offering flexible coworking solutions, seamless online reservations for freelancers and remote teams.',
+    image: workpod,
     tags: ['React', 'Node.js', 'MongoDB'],
-    category: 'Full Stack',
+    category: 'Web App',
     github: 'https://github.com/username/restaurant',
-    demo: 'https://restaurant-demo.com',
+    demo: 'https://bayehomessolutions.com.ng/workpod',
   },
   {
     id: 6,
