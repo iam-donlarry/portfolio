@@ -5,7 +5,7 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 0.75rem 1.5rem;
   background: ${({ theme }) => theme.palette?.background?.default || '#ffffff'};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -31,19 +31,20 @@ const Logo = styled(ScrollLink)`
 const NavMenu = styled.ul`
   display: flex;
   list-style: none;
-  gap: 2rem;
+  gap: 1.25rem;
   margin: 0;
   padding: 0;
   align-items: center;
 
   @media (max-width: 768px) {
     position: fixed;
-    top: 70px;
+    top: 60px;
     left: 0;
     right: 0;
     background: ${({ theme }) => theme.palette?.background?.default || '#ffffff'};
     flex-direction: column;
-    padding: 2rem;
+    padding: 1rem;
+    gap: 0.75rem;
     transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(-100%)')};
     transition: transform 0.3s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
