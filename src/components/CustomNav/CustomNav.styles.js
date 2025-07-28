@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Link as ScrollLink } from 'react-scroll';
 
+
+
 const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -44,7 +46,7 @@ const NavMenu = styled.ul`
     flex-direction: column;
     padding: 1rem;
     gap: 0.75rem;
-    transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(-100%)')};
+    transform: ${({ $isOpen }) => ($isOpen ? 'translateX(0)' : 'translateX(-100%)')};
     transition: transform 0.3s ease-in-out;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }

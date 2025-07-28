@@ -66,7 +66,7 @@ const CustomNav = () => {
         {isOpen ? <FaTimes /> : <FaBars />}
       </MobileMenuButton>
 
-      <NavMenu isOpen={isOpen}>
+      <NavMenu $isOpen={isOpen}>
         {navLinks.map((link) => (
           <NavItem key={link.to}>
             <NavLink
