@@ -55,7 +55,7 @@ const About = ({ setActiveSection }) => {
     { icon: <FaBriefcase />, label: 'Experience', value: '3+ Years' },
     { icon: <FaPhone />, label: 'Phone', value: '+234 704 227 7326' },
     { icon: <FaMapMarkerAlt />, label: 'Location', value: 'Lagos, Nigeria' },
-    { icon: <FaGlobe />, label: 'Website', value: 'quadriadekunle.netlify.app' },
+    { icon: <FaGlobe />, label: 'Website', value: 'quadriadekunle.vercel.app' },
   ];
 
   const [activeTab, setActiveTab] = useState('about');
@@ -82,7 +82,7 @@ const About = ({ setActiveSection }) => {
             Hire Me
           </a>
           <a 
-            href="/resume.pdf" 
+            href="documents/Quadri-Resume.pdf" 
             className="btn btn-outline-primary"
             download
           >
