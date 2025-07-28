@@ -168,12 +168,12 @@ const GlobalStyles = createGlobalStyle`
 
   /* Sections */
   section {
-    padding: 5rem 0;
+    padding: 1rem 0;
     position: relative;
 
     .section-header {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 1rem;
 
       h2 {
         font-size: 2.5rem;
