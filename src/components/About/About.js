@@ -83,7 +83,7 @@ const About = ({ setActiveSection }) => {
           </a>
           <a 
             href="documents/Quadri-Resume.pdf" 
-            className="btn btn-outline-primary"
+            className="btn btn-primary"
             download
           >
             Download CV

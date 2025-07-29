@@ -354,25 +354,31 @@
 }
 
 .btn-primary {
-  background: var(--primary-color);
-  color: #fff;
-  box-shadow: 0 5px 15px rgba(52, 183, 167, 0.3);
+  background: var(--primary-color, #34b7a7) !important;
+  color: #fff !important;
+  box-shadow: 0 5px 15px rgba(52, 183, 167, 0.3) !important;
 }
 
 .btn-outline-primary {
   background: transparent;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
-}
-
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(52, 183, 167, 0.4);
+  color: var(--primary-color, #34b7a7);
+  border: 2px solid var(--primary-color, #34b7a7);
+  transition: all 0.3s ease-in-out;
+  box-shadow: none;
 }
 
 .btn-outline-primary:hover {
-  background: var(--primary-color);
+  background: var(--primary-color, #34b7a7);
   color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(52, 183, 167, 0.3);
+}
+
+/* General button hover state - less specific to avoid overriding outline button hover */
+.btn:not(.btn-outline-primary):hover {
+  transform: translateY(-3px);
+  background: #2da194 !important;
+  box-shadow: 0 8px 25px rgba(52, 183, 167, 0.4) !important;
 }
 
 /* Skills Section */

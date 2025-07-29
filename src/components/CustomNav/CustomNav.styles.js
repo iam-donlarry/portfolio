@@ -66,12 +66,14 @@ const NavLink = styled(ScrollLink)`
   cursor: pointer;
 
   &:hover {
-    color: ${({ theme }) => theme.palette?.primary?.main || '#4a6cf7'};
+    color: var(--primary-color, #34b7a7);
+    background-color: rgba(52, 183, 167, 0.1);
   }
 
   &.active {
-    color: ${({ theme }) => theme.palette?.primary?.main || '#4a6cf7'};
+    color: var(--primary-color, #34b7a7);
     font-weight: 600;
+    border-bottom: 2px solid var(--primary-color, #34b7a7);
   }
 `;
 

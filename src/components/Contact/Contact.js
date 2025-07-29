@@ -212,16 +212,19 @@ const Contact = ({ setActiveSection }) => {
     width: '40px',
     height: '40px',
     borderRadius: '50%',
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
+    backgroundColor: 'rgba(52, 183, 167, 0.1)',
+    color: 'var(--primary-color, #34b7a7)',
     margin: '0 8px',
     transition: 'all 0.3s ease',
     '&:hover': {
+      backgroundColor: 'var(--primary-color, #34b7a7)',
+      color: 'white',
       transform: 'translateY(-3px)',
-      boxShadow: `0 5px 15px ${theme.palette.primary.main}40`
+      boxShadow: '0 5px 15px rgba(52, 183, 167, 0.4)'
     },
     '& svg': {
-      fontSize: '1.2rem'
+      fontSize: '1.2rem',
+      color: 'inherit'
     }
   }));
 
@@ -234,8 +237,8 @@ const Contact = ({ setActiveSection }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="display-4 fw-bold mb-3">Get In Touch</h2>
-          <p className="lead text-muted">Let's work together on your next project</p>
+          <h2 className="display-4 fw-bold mb-3" style={{ color: 'white !important' }}>Get In Touch</h2>
+          <p className="lead" style={{ color: 'white', opacity: 0.9 }}>Let's work together on your next project</p>
         </motion.div>
 
         <div className="row g-4">
@@ -253,7 +256,7 @@ const Contact = ({ setActiveSection }) => {
               >
                 <ContactCard>
                   <CardContent className="p-4 d-flex align-items-center">
-                    <div className="contact-icon me-4">
+                    <div className="contact-icon me-4" style={{ color: 'var(--primary-color, #34b7a7)' }}>
                       {React.cloneElement(item.icon, { size: 28 })}
                     </div>
                     <div>
@@ -268,7 +271,7 @@ const Contact = ({ setActiveSection }) => {
                           {item.text}
                         </a>
                       ) : (
-                        <p className="mb-0 text-muted">{item.text}</p>
+                        <p className="mb-0" style={{ color: 'var(--primary-color, #34b7a7)', opacity: 0.9 }}>{item.text}</p>
                       )}
                     </div>
                   </CardContent>
@@ -310,7 +313,9 @@ const Contact = ({ setActiveSection }) => {
                 titleTypographyProps={{
                   variant: 'h5',
                   fontWeight: 'bold',
-                  color: 'primary.main'
+                  sx: {
+                    color: 'var(--primary-color, #34b7a7)'
+                  }
                 }}
                 className="border-bottom"
               />
@@ -407,10 +412,18 @@ const Contact = ({ setActiveSection }) => {
                     <Button
                       type="submit"
                       variant="contained"
-                      color="primary"
                       size="large"
                       disabled={isSubmitting}
                       startIcon={isSubmitting ? <div className="spinner-border spinner-border-sm" role="status" /> : <FaPaperPlane />}
+                      sx={{
+                        backgroundColor: 'var(--primary-color, #34b7a7)',
+                        '&:hover': {
+                          backgroundColor: 'var(--color-primary-dark, #2da194)',
+                        },
+                        '&:disabled': {
+                          backgroundColor: 'rgba(52, 183, 167, 0.5)'
+                        }
+                      }}
                     >
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </Button>
