@@ -1,0 +1,346 @@
+# ====================================================
+# Quadri Adekunle's Portfolio - .htaccess Configuration
+# Last updated: 2025-09-26
+# ====================================================
+
+# ----------------------------------------------------------------------
+# | Compression - GZIP                                                 |
+# ----------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  # Force compression for mangled `Accept-Encoding` request headers
+  <IfModule mod_setenvif.c>
+    <IfModule mod_headers.c>
+      SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+      RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+    </IfModule>
+  </IfModule>
+
+  # Compress all output labeled with one of the following MIME-types
+  <IfModule mod_filter.c>
+    AddOutputFilterByType DEFLATE "application/atom+xml" \
+                                  "application/javascript" \
+                                  "application/json" \
+                                  "application/ld+json" \
+                                  "application/manifest+json" \
+                                  "application/rdf+xml" \
+                                  "application/rss+xml" \
+                                  "application/schema+json" \
+                                  "application/vnd.geo+json" \
+                                  "application/vnd.ms-fontobject" \
+                                  "application/x-font-ttf" \
+                                  "application/x-javascript" \
+                                  "application/x-web-app-manifest+json" \
+                                  "application/xhtml+xml" \
+                                  "application/xml" \
+                                  "font/eot" \
+                                  "font/opentype" \
+                                  "image/bmp" \
+                                  "image/svg+xml" \
+                                  "image/vnd.microsoft.icon" \
+                                  "image/x-icon" \
+                                  "text/cache-manifest" \
+                                  "text/css" \
+                                  "text/html" \
+                                  "text/javascript" \
+                                  "text/plain" \
+                                  "text/vcard" \
+                                  "text/vnd.rim.location.xloc" \
+                                  "text/vtt" \
+                                  "text/x-component" \
+                                  "text/x-cross-domain-policy" \
+                                  "text/xml"
+  </IfModule>
+
+  <IfModule mod_mime.c>
+    AddEncoding gzip              svgz
+  </IfModule>
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | CORS - Cross-Origin Resource Sharing                               |
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+  <FilesMatch "\.(eot|otf|tt[cf]|woff2?)$">
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Browser Caching - Expires Headers                                  |
+# ----------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive on
+  ExpiresDefault                                      "access plus 1 month"
+
+  # CSS
+  ExpiresByType text/css                              "access plus 1 year"
+
+  # Data interchange
+  ExpiresByType application/atom+xml                  "access plus 1 hour"
+  ExpiresByType application/rdf+xml                   "access plus 1 hour"
+  ExpiresByType application/rss+xml                   "access plus 1 hour"
+  ExpiresByType application/json                      "access plus 0 seconds"
+  ExpiresByType application/ld+json                   "access plus 0 seconds"
+  ExpiresByType application/schema+json               "access plus 0 seconds"
+  ExpiresByType application/vnd.geo+json              "access plus 0 seconds"
+  ExpiresByType application/xml                       "access plus 0 seconds"
+  ExpiresByType text/xml                              "access plus 0 seconds"
+
+  # Favicon and app icons
+  ExpiresByType image/vnd.microsoft.icon              "access plus 1 week"
+  ExpiresByType image/x-icon                          "access plus 1 week"
+
+  # HTML
+  ExpiresByType text/html                             "access plus 0 seconds"
+
+  # JavaScript
+  ExpiresByType application/javascript                "access plus 1 year"
+  ExpiresByType application/x-javascript              "access plus 1 year"
+  ExpiresByType text/javascript                       "access plus 1 year"
+
+  # Manifest files
+  ExpiresByType application/manifest+json             "access plus 1 week"
+  ExpiresByType application/x-web-app-manifest+json   "access plus 0 seconds"
+  ExpiresByType text/cache-manifest                   "access plus 0 seconds"
+
+  # Media files
+  ExpiresByType audio/ogg                             "access plus 1 month"
+  ExpiresByType image/bmp                             "access plus 1 month"
+  ExpiresByType image/gif                             "access plus 1 month"
+  ExpiresByType image/jpeg                            "access plus 1 month"
+  ExpiresByType image/png                             "access plus 1 month"
+  ExpiresByType image/svg+xml                         "access plus 1 month"
+  ExpiresByType image/webp                            "access plus 1 month"
+  ExpiresByType video/mp4                             "access plus 1 month"
+  ExpiresByType video/ogg                             "access plus 1 month"
+  ExpiresByType video/webm                            "access plus 1 month"
+
+  # Web fonts
+  # Embedded OpenType (EOT)
+  ExpiresByType application/vnd.ms-fontobject         "access plus 1 year"
+  ExpiresByType font/eot                              "access plus 1 year"
+  # OpenType
+  ExpiresByType font/opentype                         "access plus 1 year"
+  # TrueType
+  ExpiresByType application/x-font-ttf                "access plus 1 year"
+  # Web Open Font Format (WOFF) 1.0
+  ExpiresByType application/font-woff                 "access plus 1 year"
+  ExpiresByType application/x-font-woff               "access plus 1 year"
+  ExpiresByType font/woff                             "access plus 1 year"
+  # Web Open Font Format (WOFF) 2.0
+  ExpiresByType application/font-woff2                "access plus 1 year"
+  ExpiresByType font/woff2                            "access plus 1 year"
+
+  # Other
+  ExpiresByType text/x-cross-domain-policy            "access plus 1 week"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Cache Control Headers                                              |
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+  <FilesMatch "\.(eot|otf|tt[cf]|woff2?)$">
+    Header set Cache-Control "max-age=31536000, public, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(gif|ico|jpe?g|png|svg|webp)$">
+    Header set Cache-Control "max-age=31536000, public"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "max-age=31536000, public"
+  </FilesMatch>
+  <FilesMatch "\.(html|htm|xml|txt)$">
+    Header set Cache-Control "max-age=7200, public, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Single Page Application (SPA) Routing                              |
+# ----------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Remove trailing slashes
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)/$ /$1 [L,R=301]
+  
+  # Handle front controller
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [L]
+  
+  # Handle Authorization Header
+  RewriteCond %{HTTP:Authorization} .
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Security Headers                                                   |
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Protect against XSS attacks
+  Header set X-XSS-Protection "1; mode=block"
+  
+  # Prevent MIME type sniffing
+  Header set X-Content-Type-Options "nosniff"
+  
+  # Prevent clickjacking
+  Header set X-Frame-Options "SAMEORIGIN"
+  
+  # Enable HTTP Strict Transport Security (HSTS)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+  
+  # Configure CSP
+  Header set Content-Security-Policy "\
+    default-src 'self'; \
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; \
+    style-src 'self' 'unsafe-inline' https:; \
+    img-src 'self' data: https:; \
+    font-src 'self' data: https:; \
+    connect-src 'self' https:; \
+    frame-ancestors 'self'; \
+    form-action 'self'; \
+    base-uri 'self'; \
+    object-src 'none';"
+  
+  # Prevent content type sniffing
+  Header set X-Content-Type-Options "nosniff"
+  
+  # Referrer Policy
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  
+  # Feature Policy
+  Header set Feature-Policy "\
+    geolocation 'self'; \
+    midi 'none'; \
+    sync-xhr 'self'; \
+    microphone 'none'; \
+    camera 'none'; \
+    magnetometer 'none'; \
+    gyroscope 'none'; \
+    fullscreen 'self'; \
+    payment 'none'"
+  
+  # Permissions Policy
+  Header set Permissions-Policy "\
+    geolocation=(), \
+    midi=(), \
+    sync-xhr=(), \
+    microphone=(), \
+    camera=(), \
+    magnetometer=(), \
+    gyroscope=(), \
+    fullscreen=(), \
+    payment=()"
+  
+  # X-Permitted-Cross-Domain-Policies
+  Header set X-Permitted-Cross-Domain-Policies "none"
+  
+  # Expect-CT
+  Header set Expect-CT "enforce, max-age=30"
+  
+  # Remove X-Powered-By
+  Header unset X-Powered-By
+  
+  # Remove Server header
+  Header unset Server
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | File access                                                        |
+# ----------------------------------------------------------------------
+# Block access to directories without a default document
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
+
+# Block access to all hidden files and directories
+<IfModule mod_rewrite.c>
+  RewriteCond %{SCRIPT_FILENAME} -d [OR]
+  RewriteCond %{SCRIPT_FILENAME} -f
+  RewriteRule "(^|/)\." - [F]
+</IfModule>
+
+# Block access to files that can expose sensitive information
+<FilesMatch "(^#.*#|\.(bak|conf|dist|fla|in[ci]|log|psd|sh|sql|sw[op])|~)$">
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+    Satisfy All
+  </IfModule>
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+</FilesMatch>
+
+# ----------------------------------------------------------------------
+# | Compression - Brotli                                               |
+# ----------------------------------------------------------------------
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/plain \
+    text/html \
+    text/xml \
+    text/css \
+    application/xml \
+    application/xhtml+xml \
+    application/rss+xml \
+    application/atom_xml \
+    application/javascript \
+    application/x-javascript \
+    application/x-httpd-php \
+    application/x-httpd-fastphp \
+    application/vnd.ms-fontobject \
+    image/svg+xml \
+    image/x-icon \
+    application/x-font-ttf \
+    font/opentype
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | Error Pages                                                        |
+# ----------------------------------------------------------------------
+ErrorDocument 400 /400.html
+ErrorDocument 401 /401.html
+ErrorDocument 403 /403.html
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+
+# ----------------------------------------------------------------------
+# | Character encodings                                                |
+# ----------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddCharset utf-8 .atom \
+                   .bbaw \
+                   .css \
+                   .geojson \
+                   .js \
+                   .json \
+                   .jsonld \
+                   .manifest \
+                   .rdf \
+                   .rss \
+                   .topojson \
+                   .vtt \
+                   .webapp \
+                   .webmanifest \
+                   .xloc \
+                   .xml
+</IfModule>
+
+# ----------------------------------------------------------------------
+# | ETags                                                              |
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header unset ETag
+</IfModule>
+
+FileETag None
+
+# ----------------------------------------------------------------------
+# | Filename-based cache busting                                       |
+# ----------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.+)\.(\d+)\.(bmp|css|cur|gif|ico|jpe?g|js|png|svgz?|webp|webmanifest)$ $1.$3 [L]
+</IfModule>

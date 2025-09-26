@@ -1,10 +1,18 @@
 import { createGlobalStyle } from 'styled-components';
-import { cssVariables } from '../theme';
+import { cssVariables, cssVariablesDark } from '../theme';
 
 const GlobalStyles = createGlobalStyle`
-  :root {
-    /* Apply CSS variables */
+  :root,
+  [data-theme='light'] {
+    /* Light mode variables */
     ${Object.entries(cssVariables)
+      .map(([key, value]) => `${key}: ${value};`)
+      .join('\n    ')}
+  }
+
+  [data-theme='dark'] {
+    /* Dark mode variables */
+    ${Object.entries(cssVariablesDark)
       .map(([key, value]) => `${key}: ${value};`)
       .join('\n    ')}
   }
@@ -18,11 +26,56 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
   }
 
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Base typography */
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    line-height: 1.5;
+    color: ${({ theme }) => theme.palette.text.primary};
+    background-color: ${({ theme }) => theme.palette.background.default};
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 0.5em;
+    color: ${({ theme }) => theme.palette.text.primary};
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: ${({ theme }) => theme.palette.text.secondary};
+  }
+
+  a {
+    color: ${({ theme }) => theme.palette.primary.main};
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: ${({ theme }) => theme.palette.primary.dark};
+    }
+  }
+
   html {
     font-size: 16px;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Prevent white gaps from margin-collapsing by ensuring html has same bg */
+    background-color: var(--color-background);
   }
 
   body {
@@ -41,7 +94,7 @@ const GlobalStyles = createGlobalStyle`
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 1rem;
-    color: var(--color-text-primary);
+    color: var(--color-primary);
   }
   
   h2 {
@@ -49,7 +102,7 @@ const GlobalStyles = createGlobalStyle`
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 1rem;
-    color: #000000; /* Force black color */
+    color: var(--color-primary);
   }
 
   h1 { font-size: 3rem; }
@@ -132,7 +185,7 @@ const GlobalStyles = createGlobalStyle`
     &:focus {
       border-color: var(--color-primary);
       outline: 0;
-      box-shadow: 0 0 0 0.2rem rgba(82, 113, 255, 0.25);
+      box-shadow: 0 0 0 0.2rem rgba(203, 172, 249, 0.25);
     }
 
     &::placeholder {
@@ -170,6 +223,8 @@ const GlobalStyles = createGlobalStyle`
   section {
     padding: 1rem 0;
     position: relative;
+    /* Avoid top/bottom margins creating white stripes via margin-collapsing */
+    margin: 0;
 
     .section-header {
       text-align: center;

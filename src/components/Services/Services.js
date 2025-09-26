@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaLaptopCode, FaMobileAlt, FaServer, FaDatabase, FaSearch, FaRocket } from 'react-icons/fa';
 import './Services.css';
 
-const Services = ({ setActiveSection }) => {
+const Services = ({ setActiveSection = () => {} }) => {
   const [ref, inView] = useInView({
     threshold: 0.1,
     triggerOnce: false,
@@ -34,42 +34,42 @@ const Services = ({ setActiveSection }) => {
       icon: <FaLaptopCode />,
       title: 'Web Development',
       description: 'Custom website development using modern technologies like React, Next.js, and modern JavaScript frameworks.',
-      color: '#4f46e5'
+      color: '#CBACF9'
     },
     {
       id: 2,
       icon: <FaMobileAlt />,
       title: 'Responsive Design',
       description: 'Mobile-first approach to ensure your website looks great on all devices and screen sizes.',
-      color: '#10b981'
+      color: '#CBACF9'
     },
     {
       id: 3,
       icon: <FaServer />,
       title: 'Backend Development',
       description: 'Robust backend solutions using Node.js, Express, and other server-side technologies.',
-      color: '#f59e0b'
+      color: '#CBACF9'
     },
     {
       id: 4,
       icon: <FaDatabase />,
       title: 'Database Design',
       description: 'Efficient database architecture and optimization for your web applications.',
-      color: '#ec4899'
+      color: '#CBACF9'
     },
     {
       id: 5,
       icon: <FaSearch />,
       title: 'SEO Optimization',
       description: 'Improve your website\'s visibility and ranking on search engines.',
-      color: '#8b5cf6'
+      color: '#CBACF9'
     },
     {
       id: 6,
       icon: <FaRocket />,
       title: 'Performance',
       description: 'Speed up your website and improve user experience with performance optimization.',
-      color: '#3b82f6'
+      color: '#CBACF9'
     }
   ];
 

@@ -1,3 +1,69 @@
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt for Quadri Adekunle's Portfolio
+# Last updated: 2025-03-27
+
+# Default rule for all crawlers
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /cgi-bin/
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /search/
+Disallow: /?s=
+Disallow: /*?*
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /*.css$
+Allow: /*.css?ver=
+Allow: /*.js?ver=
+
+# Sitemap location - Update with your production URL
+Sitemap: https://quadriadekunle.vercel.app/sitemap.xml
+
+# Crawl-delay: 10  # Uncomment if needed to limit crawl rate
+
+# Search engine specific rules
+# Google
+User-agent: Googlebot
+Crawl-delay: 10
+Allow: /*.css$
+Allow: /*.js$
+
+# Bing
+User-agent: Bingbot
+Crawl-delay: 10
+Allow: /*.css$
+Allow: /*.js$
+
+# Twitter
+User-agent: Twitterbot
+Crawl-delay: 10
+Allow: /$
+Allow: /?*
+
+# Facebook
+User-agent: facebookexternalhit/1.1
+Crawl-delay: 10
+Allow: /$
+Allow: /?*
+
+# LinkedIn
+User-agent: LinkedInBot
+Crawl-delay: 10
+Allow: /$
+Allow: /?*
+
+# Block specific files and directories
+Disallow: /node_modules/
+Disallow: /build/
+Disallow: /src/
+Disallow: /config/
+Disallow: /*.css$
+
+# Allow all other files
+Allow: /*.html$
+Allow: /*.jpg$
+Allow: /*.png$
+Allow: /*.svg$

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaUser, FaPhone, FaMapMarkerAlt, FaGithub, FaLinkedin, FaTwitter, FaGlobe, FaGraduationCap, FaBriefcase, FaCode, FaTools, FaRocket } from 'react-icons/fa';
+import { FaUser,  FaGithub, FaLinkedin, FaTwitter,  FaCode, FaTools, FaRocket } from 'react-icons/fa';
 import './About.css';
 
-const About = ({ setActiveSection }) => {
+const About = ({ setActiveSection = () => {} }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     threshold: 0.1,
@@ -42,21 +42,17 @@ const About = ({ setActiveSection }) => {
   };
 
   const skills = [
-    { name: 'HTML', level: 95, color: '#E44D26' },
-    { name: 'CSS', level: 90, color: '#264DE4' },
-    { name: 'JavaScript', level: 85, color: '#F0DB4F' },
-    { name: 'React', level: 85, color: '#61DAFB' },
-    { name: 'Node.js', level: 80, color: '#68A063' },
+    { name: 'HTML5', src: '/html.png' },
+    { name: 'CSS3', src: '/css.png' },
+    { name: 'JavaScript', src: '/javascript.png' },
+    { name: 'TypeScript', src: '/typescript.svg' },
+    { name: 'React', src: '/react.svg' },
+    { name: 'Next.js', src: '/nextjs.svg' },
+    { name: 'Node.js', src: '/nodejs.png' },
+    { name: 'MongoDB', src: '/mongodb.png' },
+    { name: 'Tailwind CSS', src: '/tailwind.svg' },
   ];
 
-  const personalInfo = [
-    { icon: <FaUser />, label: 'Name', value: 'Quadri Adekunle' },
-    { icon: <FaGraduationCap />, label: 'Education', value: 'HND Computer Science' },
-    { icon: <FaBriefcase />, label: 'Experience', value: '3+ Years' },
-    { icon: <FaPhone />, label: 'Phone', value: '+234 704 227 7326' },
-    { icon: <FaMapMarkerAlt />, label: 'Location', value: 'Lagos, Nigeria' },
-    { icon: <FaGlobe />, label: 'Website', value: 'quadriadekunle.vercel.app' },
-  ];
 
   const [activeTab, setActiveTab] = useState('about');
 
@@ -94,43 +90,24 @@ const About = ({ setActiveSection }) => {
     skills: (
       <div className="tab-pane active">
         <h3>My Skills</h3>
-        <div className="skills-container">
+        <div className="skills-grid">
           {skills.map((skill, index) => (
-            <div key={index} className="skill-item">
-              <div className="skill-header">
-                <span className="skill-name">{skill.name}</span>
-                <span className="skill-percent">{skill.level}%</span>
-              </div>
-              <div className="skill-bar">
-                <div 
-                  className="skill-progress"
-                  style={{ 
-                    backgroundColor: skill.color,
-                    width: `${skill.level}%`
-                  }}
+            <div key={index} className="skill-card" aria-label={skill.name}>
+              <div className="skill-image-wrap">
+                <img
+                  src={skill.src}
+                  alt={skill.name}
+                  className="skill-image"
+                  loading="lazy"
                 />
               </div>
+              <span className="skill-name">{skill.name}</span>
             </div>
           ))}
         </div>
       </div>
     ),
-    info: (
-      <div className="tab-pane active">
-        <h3>Personal Info</h3>
-        <div className="info-grid">
-          {personalInfo.map((info, index) => (
-            <div key={index} className="info-item">
-              <span className="info-icon">{info.icon}</span>
-              <div>
-                <span className="info-label">{info.label}:</span>
-                <span className="info-value">{info.value}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    )
+    
   };
 
   return (
@@ -202,12 +179,6 @@ const About = ({ setActiveSection }) => {
                 onClick={() => setActiveTab('skills')}
               >
                 <FaCode className="tab-icon" /> Skills
-              </button>
-              <button 
-                className={`tab-btn ${activeTab === 'info' ? 'active' : ''}`}
-                onClick={() => setActiveTab('info')}
-              >
-                <FaTools className="tab-icon" /> Info
               </button>
             </div>
 

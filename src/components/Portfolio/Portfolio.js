@@ -76,7 +76,7 @@ const projects = [
 // Get all unique categories
 const categories = ['All', ...new Set(projects.map(project => project.category))];
 
-const Portfolio = ({ setActiveSection }) => {
+const Portfolio = ({ setActiveSection = () => {} }) => {
   const [filter, setFilter] = useState('All');
   const [filteredProjects, setFilteredProjects] = useState(projects);
   const [ref, inView] = useInView({

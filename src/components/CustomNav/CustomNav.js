@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
-import { Nav, Logo, NavMenu, NavItem, NavLink, MobileMenuButton } from './CustomNav.styles';
+import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
+import { Link as ScrollLink } from 'react-scroll';
+import * as S from './CustomNav.styles';
 
-const CustomNav = () => {
+const CustomNav = ({ themeMode = 'light', onToggleTheme, activeSection = '', setActiveSection = () => {} }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const navLinks = [
     { to: 'about', text: 'About' },
-    { to: 'resume', text: 'Resume' },
-    { to: 'services', text: 'Services' },
     { to: 'portfolio', text: 'Portfolio' },
+    { to: 'services', text: 'Services' },
+    { to: 'resume', text: 'Resume' },
     { to: 'contact', text: 'Contact' },
   ];
+
+  // Function to check if a nav item is active
+  const isActive = (to) => activeSection === to;
 
   // Handle scroll effect
   useEffect(() => {
@@ -48,42 +52,50 @@ const CustomNav = () => {
     if (window.innerWidth <= 768) {
       setIsOpen(false);
     }
+    setActiveSection('home');
   };
 
   return (
-    <Nav className={scrolled ? 'scrolled' : ''}>
-      <Logo
-        to="home"
-        smooth={true}
-        duration={500}
-        offset={-80}
-        onClick={handleNavClick}
-      >
-        <img src="/logo.png"/>
-      </Logo>
+    <S.Nav className={scrolled ? 'scrolled' : ''}>
+      <S.Logo to="#home" onClick={handleNavClick}>
+        <img src="/logo2.svg" alt="Logo" />
+      </S.Logo>
+      
+      <S.RightAligned>
+        <S.ThemeToggle
+          onClick={onToggleTheme}
+          aria-label={themeMode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          {themeMode === 'dark' ? <FaSun /> : <FaMoon />}
+        </S.ThemeToggle>
+        <S.MobileMenuButton onClick={toggleMenu} aria-label="Toggle menu">
+          {isOpen ? <FaTimes /> : <FaBars />}
+        </S.MobileMenuButton>
+      </S.RightAligned>
 
-      <MobileMenuButton onClick={toggleMenu} aria-label="Toggle menu">
-        {isOpen ? <FaTimes /> : <FaBars />}
-      </MobileMenuButton>
-
-      <NavMenu $isOpen={isOpen}>
+      <S.NavMenu $isOpen={isOpen}>
         {navLinks.map((link) => (
-          <NavItem key={link.to}>
-            <NavLink
+          <S.NavItem key={link.to}>
+            <S.NavLink
               to={link.to}
-              smooth={true}
-              duration={500}
-              offset={-80}
               spy={true}
+              smooth={true}
+              offset={-80}
+              duration={500}
+              onClick={() => {
+                setIsOpen(false);
+              }}
+              onSetActive={() => setActiveSection(link.to)}
+              className={isActive(link.to) ? 'active' : ''}
               activeClass="active"
-              onClick={handleNavClick}
             >
               {link.text}
-            </NavLink>
-          </NavItem>
+              {isActive(link.to) && <span className="active-indicator"></span>}
+            </S.NavLink>
+          </S.NavItem>
         ))}
-      </NavMenu>
-    </Nav>
+      </S.NavMenu>
+    </S.Nav>
   );
 };
 

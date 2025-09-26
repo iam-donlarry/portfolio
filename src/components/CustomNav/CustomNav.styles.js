@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { Link as ScrollLink } from 'react-scroll';
 
-
-
 const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -23,11 +21,10 @@ const Logo = styled(ScrollLink)`
   cursor: pointer;
 
   img {
-    height: 40px; /* adjust as needed */
+    height: 40px;
     width: auto;
   }
 `;
-
 
 const NavMenu = styled.ul`
   display: flex;
@@ -59,21 +56,46 @@ const NavItem = styled.li`
 const NavLink = styled(ScrollLink)`
   color: ${({ theme }) => theme.palette?.text?.primary || '#333333'};
   text-decoration: none;
+  font-size: 1rem;
   font-weight: 500;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
   cursor: pointer;
 
   &:hover {
-    color: var(--primary-color, #34b7a7);
-    background-color: rgba(52, 183, 167, 0.1);
+    color: ${({ theme }) => theme.palette?.primary?.main || '#CBACF9'};
   }
 
   &.active {
-    color: var(--primary-color, #34b7a7);
+    color: ${({ theme }) => theme.palette?.primary?.main || '#CBACF9'};
     font-weight: 600;
-    border-bottom: 2px solid var(--primary-color, #34b7a7);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5px;
+      height: 5px;
+      background-color: ${({ theme }) => theme.palette?.primary?.main || '#CBACF9'};
+      border-radius: 50%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+
+    &:hover {
+      background: ${({ theme }) => theme.palette?.action?.hover || 'rgba(0, 0, 0, 0.04)'};
+    }
   }
 `;
 
@@ -81,14 +103,59 @@ const MobileMenuButton = styled.button`
   display: none;
   background: none;
   border: none;
+  color: ${({ theme }) => theme.palette?.text?.primary || '#333333'};
   font-size: 1.5rem;
   cursor: pointer;
-  color: ${({ theme }) => theme.palette?.text?.primary || '#333333'};
-  z-index: 1001;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.palette?.action?.hover || 'rgba(0, 0, 0, 0.04)'};
+  }
 
   @media (max-width: 768px) {
     display: block;
   }
 `;
 
-export { Nav, Logo, NavMenu, NavItem, NavLink, MobileMenuButton };
+const RightAligned = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto; /* Push to the right */
+`;
+
+const ThemeToggle = styled.button`
+  background: none;
+  border: none;
+  color: ${({ theme }) => theme.palette?.text?.primary || '#333333'};
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.palette?.action?.hover || 'rgba(0, 0, 0, 0.04)'};
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.palette?.primary?.light || '#E0CFFC'};
+  }
+`;
+
+export {
+  Nav,
+  Logo,
+  NavMenu,
+  NavItem,
+  NavLink,
+  MobileMenuButton,
+  ThemeToggle,
+  RightAligned
+};

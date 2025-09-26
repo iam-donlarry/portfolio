@@ -1,6 +1,6 @@
 /* About Section */
 .about {
-  padding: 6rem 0;
+  padding: 80px 0;
   background-color: var(--bg-color);
   position: relative;
 }
@@ -22,7 +22,7 @@
 .profile-image-container {
   padding: 2rem;
   text-align: center;
-  background: linear-gradient(145deg, rgba(52, 183, 167, 0.1), rgba(52, 183, 167, 0.05));
+  background: linear-gradient(145deg, rgba(203, 172, 249, 0.1), rgba(203, 172, 249, 0.05));
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -129,13 +129,13 @@
 
 .tab-btn:hover {
   color: var(--primary-color);
-  background: rgba(52, 183, 167, 0.1);
+  background: rgba(203, 172, 249, 0.1);
 }
 
 .tab-btn.active {
   color: var(--primary-color);
   border-bottom: 2px solid var(--primary-color);
-  background: rgba(52, 183, 167, 0.1);
+  background: rgba(203, 172, 249, 0.1);
 }
 
 .tab-icon {
@@ -163,7 +163,7 @@
 .tab-pane h3 {
   font-size: 1.5rem;
   margin-bottom: 1.25rem;
-  color: var(--text-color);
+  color: var(--primary-color);
   font-family: var(--heading-font);
 }
 
@@ -171,6 +171,11 @@
   color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 1.5rem;
+}
+
+/* Ensure About heading uses natural casing */
+.about .section-title h2 {
+  text-transform: none;
 }
 
 /* Ensure content is visible */
@@ -186,6 +191,59 @@
   flex-direction: column;
   gap: 1.25rem;
   margin-top: 1.5rem;
+}
+
+/* New Skills Grid (image-based) */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 18px;
+  margin-top: 1.5rem;
+}
+
+.skill-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  border-color: var(--primary-color);
+}
+
+.skill-image-wrap {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(203, 172, 249, 0.08);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.skill-image {
+  max-width: 36px;
+  max-height: 36px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.skill-card .skill-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-color);
 }
 
 .skill-item {
@@ -238,14 +296,14 @@
 }
 
 .info-item:hover {
-  background: rgba(52, 183, 167, 0.05);
+  background: rgba(203, 172, 249, 0.05);
 }
 
 .info-icon {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(52, 183, 167, 0.1);
+  background: rgba(203, 172, 249, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -268,7 +326,7 @@
 
 /* Highlight Box */
 .highlight-box {
-  background: rgba(52, 183, 167, 0.1);
+  background: rgba(203, 172, 249, 0.1);
   border-left: 3px solid var(--primary-color);
   padding: 1rem 1.25rem;
   border-radius: 0 8px 8px 0;
@@ -354,31 +412,31 @@
 }
 
 .btn-primary {
-  background: var(--primary-color, #34b7a7) !important;
+  background: var(--color-primary) !important;
   color: #fff !important;
-  box-shadow: 0 5px 15px rgba(52, 183, 167, 0.3) !important;
+  box-shadow: 0 5px 15px rgba(203, 172, 249, 0.3) !important;
 }
 
 .btn-outline-primary {
   background: transparent;
-  color: var(--primary-color, #34b7a7);
-  border: 2px solid var(--primary-color, #34b7a7);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
   transition: all 0.3s ease-in-out;
   box-shadow: none;
 }
 
 .btn-outline-primary:hover {
-  background: var(--primary-color, #34b7a7);
+  background: var(--color-primary);
   color: #fff;
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(52, 183, 167, 0.3);
+  box-shadow: 0 5px 15px rgba(203, 172, 249, 0.3);
 }
 
 /* General button hover state - less specific to avoid overriding outline button hover */
 .btn:not(.btn-outline-primary):hover {
   transform: translateY(-3px);
-  background: #2da194 !important;
-  box-shadow: 0 8px 25px rgba(52, 183, 167, 0.4) !important;
+  background: var(--color-primary-dark, #B38AF6) !important;
+  box-shadow: 0 8px 25px rgba(203, 172, 249, 0.4) !important;
 }
 
 /* Skills Section */
@@ -386,7 +444,7 @@
   position: relative;
   padding-top: 60px;
   margin-top: 60px;
-  border-top: 1px solid rgba(52, 183, 167, 0.1);
+  border-top: 1px solid rgba(203, 172, 249, 0.1);
 }
 
 .skills-section h3 {
@@ -432,7 +490,7 @@
 .progress {
   height: 8px;
   border-radius: 4px;
-  background: rgba(52, 183, 167, 0.1);
+  background: rgba(203, 172, 249, 0.1);
   overflow: visible;
   box-shadow: none;
   margin-top: 5px;
@@ -442,7 +500,7 @@
   border-radius: 4px;
   position: relative;
   transition: width 2s ease-in-out;
-  box-shadow: 0 2px 10px rgba(52, 183, 167, 0.3);
+  box-shadow: 0 2px 10px rgba(203, 172, 249, 0.3);
 }
 
 /* Responsive Design */

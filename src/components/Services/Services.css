@@ -1,6 +1,6 @@
 /* Services Section */
 .services {
-  padding: 100px 0;
+  padding: 80px 0;
   background-color: var(--bg-color);
   position: relative;
   overflow: hidden;
@@ -10,13 +10,14 @@
   text-align: center;
   margin-bottom: 60px;
   position: relative;
+
 }
 
 .section-header h2 {
   font-size: 2.5rem;
   font-weight: 800;
   margin-bottom: 15px;
-  color: #000000 !important; /* Force black color */
+  color: var(--color-primary) !important; 
   position: relative;
   display: inline-block;
 }
@@ -29,7 +30,7 @@
   transform: translateX(-50%);
   width: 60px;
   height: 3px;
-  background: var(--primary-color);
+  background: var(--color-primary);
   border-radius: 3px;
 }
 
@@ -110,7 +111,7 @@
 .service-icon {
   width: 80px;
   height: 80px;
-  background: rgba(52, 183, 167, 0.1);
+  background: rgba(203, 172, 249, 0.1);
   border-radius: 50%;
   display: flex;
   align-items: center;

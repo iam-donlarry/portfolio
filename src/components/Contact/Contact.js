@@ -16,7 +16,7 @@ import { TextField, Button, Card, CardContent, CardHeader } from '@mui/material'
 import { styled } from '@mui/material/styles';
 import './Contact.css';
 
-const Contact = ({ setActiveSection }) => {
+const Contact = ({ setActiveSection = () => {} }) => {
   const [ref, inView] = useInView({
     threshold: 0.1,
     triggerOnce: false,
@@ -212,15 +212,15 @@ const Contact = ({ setActiveSection }) => {
     width: '40px',
     height: '40px',
     borderRadius: '50%',
-    backgroundColor: 'rgba(52, 183, 167, 0.1)',
-    color: 'var(--primary-color, #34b7a7)',
+    backgroundColor: 'rgba(203, 172, 249, 0.1)',
+    color: 'var(--color-primary)',
     margin: '0 8px',
     transition: 'all 0.3s ease',
     '&:hover': {
-      backgroundColor: 'var(--primary-color, #34b7a7)',
+      backgroundColor: 'var(--color-primary)',
       color: 'white',
       transform: 'translateY(-3px)',
-      boxShadow: '0 5px 15px rgba(52, 183, 167, 0.4)'
+      boxShadow: '0 5px 15px rgba(203, 172, 249, 0.4)'
     },
     '& svg': {
       fontSize: '1.2rem',
@@ -237,7 +237,7 @@ const Contact = ({ setActiveSection }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="display-4 fw-bold mb-3" style={{ color: 'white !important' }}>Get In Touch</h2>
+          <h3 className="display-6 fw-bold mb-3" style={{ color: 'white' }}>Get In Touch</h3>
           <p className="lead" style={{ color: 'white', opacity: 0.9 }}>Let's work together on your next project</p>
         </motion.div>
 
@@ -256,7 +256,7 @@ const Contact = ({ setActiveSection }) => {
               >
                 <ContactCard>
                   <CardContent className="p-4 d-flex align-items-center">
-                    <div className="contact-icon me-4" style={{ color: 'var(--primary-color, #34b7a7)' }}>
+                    <div className="contact-icon me-4" style={{ color: 'var(--color-primary)' }}>
                       {React.cloneElement(item.icon, { size: 28 })}
                     </div>
                     <div>
@@ -271,7 +271,7 @@ const Contact = ({ setActiveSection }) => {
                           {item.text}
                         </a>
                       ) : (
-                        <p className="mb-0" style={{ color: 'var(--primary-color, #34b7a7)', opacity: 0.9 }}>{item.text}</p>
+                        <p className="mb-0" style={{ color: 'var(--color-primary)', opacity: 0.9 }}>{item.text}</p>
                       )}
                     </div>
                   </CardContent>
@@ -314,7 +314,7 @@ const Contact = ({ setActiveSection }) => {
                   variant: 'h5',
                   fontWeight: 'bold',
                   sx: {
-                    color: 'var(--primary-color, #34b7a7)'
+                    color: 'var(--color-primary)'
                   }
                 }}
                 className="border-bottom"
@@ -327,7 +327,6 @@ const Contact = ({ setActiveSection }) => {
                       variants={itemVariants}
                     >
                       <TextField
-                        fullWidth
                         label="Your Name"
                         name="name"
                         value={formData.name}
@@ -416,12 +415,12 @@ const Contact = ({ setActiveSection }) => {
                       disabled={isSubmitting}
                       startIcon={isSubmitting ? <div className="spinner-border spinner-border-sm" role="status" /> : <FaPaperPlane />}
                       sx={{
-                        backgroundColor: 'var(--primary-color, #34b7a7)',
+                        backgroundColor: 'var(--color-primary)',
                         '&:hover': {
-                          backgroundColor: 'var(--color-primary-dark, #2da194)',
+                          backgroundColor: 'var(--color-primary-dark, #B38AF6)',
                         },
                         '&:disabled': {
-                          backgroundColor: 'rgba(52, 183, 167, 0.5)'
+                          backgroundColor: 'rgba(203, 172, 249, 0.5)'
                         }
                       }}
                     >

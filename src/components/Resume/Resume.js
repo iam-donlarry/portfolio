@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaGraduationCap, FaBriefcase, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import './Resume.css';
 
-const Resume = ({ setActiveSection }) => {
+const Resume = ({ setActiveSection = () => {} }) => {
   const [expandedItems, setExpandedItems] = useState({});
   const [ref, inView] = useInView({
     threshold: 0.1,
@@ -102,7 +102,6 @@ const Resume = ({ setActiveSection }) => {
           transition={{ duration: 0.5 }}
         >
           <h2>Resume</h2>
-          <p>Check My Professional Journey</p>
         </motion.div>
 
         <motion.div 
