@@ -56,6 +56,8 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
+
+    "prebuild": "npm install react-scripts@5.0.1"
   },
   "eslintConfig": {
     "extends": [
