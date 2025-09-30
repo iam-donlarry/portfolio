@@ -7,6 +7,7 @@ import construction from '../../assets/images/porfolio/construction.jpeg';
 import homeland from '../../assets/images/porfolio/homeland.jpeg';
 import stoke from '../../assets/images/porfolio/stoke.jpeg';
 import workpod from '../../assets/images/porfolio/workpod.jpeg';
+import movieapp from '../../assets/images/portfolio/movieapp.jpg'
 
 import './Portfolio.css';
 
@@ -65,7 +66,7 @@ const projects = [
     id: 6,
     title: 'Movie Application',
     description: 'A mobile application designed to help users effortlessly discover their next favorite movie or TV show. Powered by The Movie Database (TMDB),',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXa5RpMkHLUpC5csmUnuwsimQGvC0pEoR58w&s',
+    image: movieapp',
     tags: ['ReactNative', 'TailwindCSS', 'TMDB API','AppWrite'],
     category: 'Mobile App',
     github: 'https://github.com/iam-donlarry/nextflick',
