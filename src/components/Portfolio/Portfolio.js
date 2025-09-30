@@ -65,7 +65,7 @@ const projects = [
     id: 6,
     title: 'Movie Application',
     description: 'A mobile application designed to help users effortlessly discover their next favorite movie or TV show. Powered by The Movie Database (TMDB),',
-    image: 'https://unsplash.com/photos/black-smartphone-showing-yellow-and-white-square-logo-pC2vPTWaHtU',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXa5RpMkHLUpC5csmUnuwsimQGvC0pEoR58w&s',
     tags: ['ReactNative', 'TailwindCSS', 'TMDB API','AppWrite'],
     category: 'Mobile App',
     github: 'https://github.com/iam-donlarry/nextflick',
