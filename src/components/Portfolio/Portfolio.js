@@ -7,7 +7,7 @@ import construction from '../../assets/images/porfolio/construction.jpeg';
 import homeland from '../../assets/images/porfolio/homeland.jpeg';
 import stoke from '../../assets/images/porfolio/stoke.jpeg';
 import workpod from '../../assets/images/porfolio/workpod.jpeg';
-import movieapp from '../../assets/images/portfolio/movieapp.jpg'
+import movieapp from '../../assets/images/porfolio/movieapp.jpg'
 
 import './Portfolio.css';
 
@@ -15,12 +15,12 @@ const projects = [
   {
     id: 1,
     title: 'Manufacturing Website',
-    description: 'Responsive site designed for a manufacturing and services company, showcasing their factories, products, and team with clean navigation and corporate style.',
+    description: 'Responsive site designed for a production and manufacturing company, showcasing their factories, products, and team with clean navigation and corporate style.',
     image: alterverse,
     tags: ['HTML', 'CSS', 'JavaScript', 'Bootstrap'],
     category: 'Frontend',
     github: 'https://github.com/iam-donlarry',
-    demo: 'https://bayehomessolutions.com.ng/alterverse/production',
+    demo: 'https://alterverse-production.pxxl.click',
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const projects = [
     tags: ['HTML', 'CSS', 'JavaScript', 'Bootstrap'],
     category: 'Frontend',
     github: 'https://github.com/iam-donlarry',
-    demo: 'https://bayehomessolutions.com.ng/alterverse/construction',
+    demo: 'https://alterverse-construction.pxxl.click',
   },
   {
     id: 3,
@@ -66,7 +66,7 @@ const projects = [
     id: 6,
     title: 'Movie Application',
     description: 'A mobile application designed to help users effortlessly discover their next favorite movie or TV show. Powered by The Movie Database (TMDB),',
-    image: movieapp',
+    image: movieapp,
     tags: ['ReactNative', 'TailwindCSS', 'TMDB API','AppWrite'],
     category: 'Mobile App',
     github: 'https://github.com/iam-donlarry/nextflick',
