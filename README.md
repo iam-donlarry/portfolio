@@ -1,7 +1,5 @@
 # Quadri Adekunle - Full Stack Developer & UI/UX Designer
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR_DEPLOY_ID/deploy-status)](https://app.netlify.com/sites/YOUR_SITE_NAME/deploys)
 
 Professional portfolio website of Quadri Adekunle, a Full Stack Developer and UI/UX Designer specializing in modern web applications and digital experiences.
 
@@ -45,9 +43,9 @@ Professional portfolio website of Quadri Adekunle, a Full Stack Developer and UI
 
 ## 🚀 Deployment
 
-### Netlify
+### Vercel
 1. Push your code to a GitHub repository
-2. Connect the repository to Netlify
+2. Connect the repository to Vercel
 3. Set the build command to `npm run build`
 4. Set the publish directory to `build`
 5. Deploy!
