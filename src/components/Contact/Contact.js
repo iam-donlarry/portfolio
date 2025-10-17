@@ -168,22 +168,13 @@ const Contact = ({ setActiveSection = () => {} }) => {
 
             setFormData({ name: '', email: '', subject: '', message: '' });
             
-            setSubmitStatus({
-                success: true,
-                message: 'Message sent successfully! I will get back to you soon.'
-            });
-            
             setSnackbar({
                 open: true,
-                message: 'Message sent successfully!',
+                message: 'Message sent successfully! I will get back to you soon.',
                 severity: 'success'
             });
         } catch (error) {
             console.error('Failed to send message:', error);
-            setSubmitStatus({
-                success: false,
-                message: 'Failed to send message. Please try again later.'
-            });
             setSnackbar({
                 open: true,
                 message: 'Failed to send message. Please check your network or try again later.',
@@ -197,7 +188,7 @@ const Contact = ({ setActiveSection = () => {} }) => {
     const contactInfo = [
         { icon: <FaMapMarkerAlt />, title: 'Location:', text: 'Lagos, Nigeria' },
         { icon: <FaEnvelope />, title: 'Email:', text: 'adekunlequadri3@gmail.com', link: 'mailto:adekunlequadri3@gmail.com' },
-        { icon: <FaPhone />, title: 'Call:', text: '+234 704 2277 326', link: 'tel:+2347042277326' }
+        { icon: <FaPhone />, title: 'Call or WhatsApp:', text: '+234 704 2277 326', link: 'tel:+2347042277326' }
     ];
 
     const socialLinks = [
