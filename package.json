@@ -13,7 +13,7 @@
     "frontend"
   ],
   "author": "Quadri Adekunle <adekunlequadri3@gmail.com> (https://quadriadekunle.vercel.app)",
-  "homepage": "https://quadriadekunle.vercel.app",
+  "homepage": ".",
   "repository": {
     "type": "git",
     "url": "https://github.com/iam-donlarry/portfolio.git"
