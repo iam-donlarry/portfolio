@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 import './Footer.css';
 
 const Footer = () => {
@@ -22,9 +22,9 @@ const Footer = () => {
       name: 'Twitter'
     },
     {
-      icon: <FaEnvelope />,
-      url: 'mailto:adekunlequadri3@gmail.com',
-      name: 'Email'
+      icon: <FaWhatsapp />,
+      url: 'https://wa.me/2347042277326',
+      name: 'WhatsApp'
     }
   ];
 

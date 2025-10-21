@@ -10,7 +10,8 @@ import {
     FaGithub, 
     FaTwitter,
     FaCheckCircle,
-    FaTimesCircle
+    FaTimesCircle,
+    FaWhatsapp,
 } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 import { styled } from '@mui/material/styles';
@@ -194,7 +195,8 @@ const Contact = ({ setActiveSection = () => {} }) => {
     const socialLinks = [
         { icon: <FaLinkedin />, url: 'https://linkedin.com/in/adekunle-quadri-920038213', name: 'LinkedIn' },
         { icon: <FaGithub />, url: 'https://github.com/iam-donlarry', name: 'GitHub' },
-        { icon: <FaTwitter />, url: 'https://twitter.com/Coredrii', name: 'Twitter' }
+        { icon: <FaTwitter />, url: 'https://twitter.com/Coredrii', name: 'Twitter' },
+        { icon: <FaWhatsapp />, url: 'https://wa.me/2347042277326', name: 'WhatsApp' }
     ];
 
     // Animation variants
@@ -307,6 +309,25 @@ const Contact = ({ setActiveSection = () => {} }) => {
                                                 onChange={handleChange}
                                                 variant="outlined"
                                                 required
+                                                sx={{
+                                                    '& .MuiOutlinedInput-root': {
+                                                    '& fieldset': {
+                                                    borderColor: 'text.primary',
+                                                    },
+                                                    '&:hover fieldset': {
+                                                    borderColor: 'primary.main',
+                                                    },
+                                                    '&.Mui-focused fieldset': {
+                                                    borderColor: '',
+                                                    },
+                                                    },
+                                                    '& .MuiInputLabel-root': {
+                                                    color: 'grey',
+                                                    },
+                                                    '& .MuiOutlinedInput-input': {
+                                                    color: 'grey',
+                                                    }
+                                                }}
                                             />
                                         </div>
                                         <div className="col-md-6 mb-3">
@@ -319,6 +340,25 @@ const Contact = ({ setActiveSection = () => {} }) => {
                                                 onChange={handleChange}
                                                 variant="outlined"
                                                 required
+                                                sx={{
+                                                    '& .MuiOutlinedInput-root': {
+                                                    '& fieldset': {
+                                                    borderColor: 'text.primary',
+                                                    },
+                                                    '&:hover fieldset': {
+                                                    borderColor: 'primary.main',
+                                                    },
+                                                    '&.Mui-focused fieldset': {
+                                                    borderColor: '',
+                                                    },
+                                                    },
+                                                    '& .MuiInputLabel-root': {
+                                                    color: 'grey',
+                                                    },
+                                                    '& .MuiOutlinedInput-input': {
+                                                    color: 'grey',
+                                                    }
+                                                }}
                                             />
                                         </div>
                                     </div>
@@ -331,6 +371,25 @@ const Contact = ({ setActiveSection = () => {} }) => {
                                             value={formData.subject}
                                             onChange={handleChange}
                                             variant="outlined"
+                                            sx={{
+                                                '& .MuiOutlinedInput-root': {
+                                                '& fieldset': {
+                                                borderColor: 'text.primary',
+                                                },
+                                                '&:hover fieldset': {
+                                                borderColor: 'primary.main',
+                                                },
+                                                '&.Mui-focused fieldset': {
+                                                borderColor: '',
+                                                },
+                                                },
+                                                '& .MuiInputLabel-root': {
+                                                color: 'grey',
+                                                },
+                                                '& .MuiOutlinedInput-input': {
+                                                color: 'grey',
+                                                }
+                                            }}
                                         />
                                     </div>
 
@@ -345,6 +404,25 @@ const Contact = ({ setActiveSection = () => {} }) => {
                                             required
                                             multiline
                                             rows={4}
+                                            sx={{
+                                                '& .MuiOutlinedInput-root': {
+                                                '& fieldset': {
+                                                borderColor: 'text.primary',
+                                                },
+                                                '&:hover fieldset': {
+                                                borderColor: 'primary.main',
+                                                },
+                                                '&.Mui-focused fieldset': {
+                                                borderColor: '',
+                                                },
+                                                },
+                                                '& .MuiInputLabel-root': {
+                                                color: 'grey',
+                                                },
+                                                '& .MuiOutlinedInput-input': {
+                                                color: 'grey',
+                                                }
+                                            }}
                                         />
                                     </div>
 
