@@ -13,7 +13,7 @@
     "frontend"
   ],
   "author": "Quadri Adekunle <adekunlequadri3@gmail.com> (https://quadriadekunle.vercel.app)",
-  "homepage": ".",
+  "homepage": "/",
   "repository": {
     "type": "git",
     "url": "https://github.com/iam-donlarry/portfolio.git"
@@ -48,15 +48,15 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "cross-env BUILD_PATH=dist npm run build:react",
+    "build": "npm run build:react",
     "build:react": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src --ext .js,.jsx",
     "format": "prettier --write \"src/**/*.{js,jsx,json,css,scss}\"",
-    "analyze": "source-map-explorer 'dist/static/js/*.js'",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
