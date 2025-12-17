@@ -47,17 +47,17 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-  "start": "react-scripts start",
-  "build": "npm run build:react",
-  "build:react": "react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject",
-  "lint": "eslint src --ext .js,.jsx",
-  "format": "prettier --write \"src/**/*.{js,jsx,json,css,scss}\"",
-  "analyze": "source-map-explorer 'build/static/js/*.js'",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
-},
+    "start": "react-scripts start",
+    "build": "cross-env BUILD_PATH=dist npm run build:react",
+    "build:react": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js,.jsx",
+    "format": "prettier --write \"src/**/*.{js,jsx,json,css,scss}\"",
+    "analyze": "source-map-explorer 'dist/static/js/*.js'",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -77,10 +77,11 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^10.1.0",
     "eslint-config-react-app": "^7.0.1",
-    "puppeteer": "^24.22.3",
     "gh-pages": "^6.1.1",
     "prettier": "^3.2.5",
+    "puppeteer": "^24.22.3",
     "source-map-explorer": "^2.5.3",
     "webpack-bundle-analyzer": "^4.10.2"
   },
