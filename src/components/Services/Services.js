@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaLaptopCode, FaMobileAlt, FaServer, FaDatabase, FaSearch, FaRocket } from 'react-icons/fa';
 import './Services.css';
 
@@ -32,49 +32,43 @@ const Services = ({ setActiveSection = () => {} }) => {
     {
       id: 1,
       icon: <FaLaptopCode />,
-      title: 'Web Development',
-      description: 'Custom website development using modern technologies like React, Next.js, and modern JavaScript frameworks.',
-      color: '#CBACF9'
+      title: 'Web Architecture',
+      description: 'Building scalable, high-performance web applications using React, Next.js, and modern ecosystems.',
     },
     {
       id: 2,
       icon: <FaMobileAlt />,
-      title: 'Responsive Design',
-      description: 'Mobile-first approach to ensure your website looks great on all devices and screen sizes.',
-      color: '#CBACF9'
+      title: 'UI/UX Engineering',
+      description: 'Crafting pixel-perfect, responsive interfaces with a focus on usability and premium aesthetics.',
     },
     {
       id: 3,
       icon: <FaServer />,
-      title: 'Backend Development',
-      description: 'Robust backend solutions using Node.js, Express, and other server-side technologies.',
-      color: '#CBACF9'
+      title: 'Web Architecture & Systems',
+      description: 'End-to-end development with robust backends and seamless API integrations.',
     },
     {
       id: 4,
       icon: <FaDatabase />,
-      title: 'Database Design',
-      description: 'Efficient database architecture and optimization for your web applications.',
-      color: '#CBACF9'
+      title: 'Data Infrastructure',
+      description: 'Designing efficient database schemas and managing data flow for complex applications.',
     },
     {
       id: 5,
       icon: <FaSearch />,
-      title: 'SEO Optimization',
-      description: 'Improve your website\'s visibility and ranking on search engines.',
-      color: '#CBACF9'
+      title: 'Strategic SEO',
+      description: 'Implementing technical SEO best practices to maximize discoverability and reach.',
     },
     {
       id: 6,
       icon: <FaRocket />,
-      title: 'Performance',
-      description: 'Speed up your website and improve user experience with performance optimization.',
-      color: '#CBACF9'
+      title: 'Digital Strategy',
+      description: 'Consulting on technical roadmaps and optimizing digital performance for growth.',
     }
   ];
 
   return (
-    <section id="services" ref={ref} className="services">
+    <section id="services" ref={ref} className="services-section">
       <div className="container">
         <motion.div 
           className="section-header"
@@ -82,39 +76,34 @@ const Services = ({ setActiveSection = () => {} }) => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2>My Services</h2>
-          <p>What I Do Best</p>
+          <h2 className="section-title"><span className="primary-gradient">Services</span></h2>
+          <p className="section-subtitle">Delivering high-end digital solutions tailored to your business needs.</p>
         </motion.div>
 
         <div className="services-grid">
-          <AnimatePresence>
-            {services.map((service) => (
-              <motion.div
-                key={service.id}
-                className="spotlight-card"
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0 }}
-                transition={{ 
-                  duration: 0.5,
-                  delay: service.id * 0.1,
-                  ease: [0.2, 0.8, 0.2, 1]
-                }}
-                onMouseEnter={() => setHoveredId(service.id)}
-                onMouseMove={(e) => handleMouseMove(e, service.id)}
-                onMouseLeave={() => setHoveredId(null)}
-                style={{ '--card-color': service.color }}
-              >
-                <div className="spotlight" />
-                <div className="spotlight-content">
-                  <div className="service-icon" style={{ color: service.color }}>
-                    {service.icon}
-                  </div>
-                  <h3>{service.title}</h3>
-                  <p>{service.description}</p>
+          {services.map((service, index) => (
+            <motion.div
+              key={service.id}
+              className="service-card glass-card"
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              onMouseEnter={() => setHoveredId(service.id)}
+              onMouseMove={(e) => handleMouseMove(e, service.id)}
+              onMouseLeave={() => setHoveredId(null)}
+            >
+              <div className="service-icon-wrap">
+                <div className="service-icon-inner">
+                  {service.icon}
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+              </div>
+              <div className="service-info">
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+              </div>
+              <div className="service-glow" />
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

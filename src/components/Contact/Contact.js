@@ -9,75 +9,14 @@ import {
     FaLinkedin, 
     FaGithub, 
     FaTwitter,
-    FaCheckCircle,
-    FaTimesCircle,
     FaWhatsapp,
 } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
-import { styled } from '@mui/material/styles';
 import { 
-    Card, 
-    CardContent, 
-    TextField, 
-    Button, 
-    Typography, 
     Snackbar, 
-    Alert, 
-    CircularProgress 
+    Alert 
 } from '@mui/material';
 import './Contact.css';
-
-/* =====================
-   STYLED COMPONENTS
-   ===================== */
-const StyledCard = styled(Card)(({ theme }) => ({
-    borderRadius: '15px',
-    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.1)',
-    backdropFilter: 'blur(10px)',
-    backgroundColor: 'rgba(255, 255, 255, 0.85)',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
-    '&:hover': {
-        boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2)'
-    },
-    [theme.breakpoints.down('md')]: {
-        marginTop: '2rem'
-    }
-}));
-
-const ContactCard = styled(Card)(({ theme }) => ({
-    height: '100%',
-    borderRadius: '15px',
-    background: 'linear-gradient(145deg, #f0f2ff, #ffffff)',
-    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.1)',
-    transition: 'all 0.3s ease',
-    '&:hover': {
-        transform: 'translateY(-5px)',
-        boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.15)'
-    }
-}));
-
-const SocialIcon = styled('a')(({ theme }) => ({
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '40px',
-    height: '40px',
-    borderRadius: '50%',
-    backgroundColor: 'rgba(203, 172, 249, 0.1)',
-    color: 'var(--color-primary)',
-    margin: '0 8px',
-    transition: 'all 0.3s ease',
-    '&:hover': {
-        backgroundColor: 'var(--color-primary)',
-        color: 'white',
-        transform: 'translateY(-3px)',
-        boxShadow: '0 5px 15px rgba(203, 172, 249, 0.4)'
-    },
-    '& svg': {
-        fontSize: '1.2rem',
-        color: 'inherit'
-    }
-}));
 
 /* =====================
    MAIN COMPONENT
@@ -96,7 +35,6 @@ const Contact = ({ setActiveSection = () => {} }) => {
     });
     
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState({ success: null, message: '' });
     const [snackbar, setSnackbar] = useState({
         open: false,
         message: '',
@@ -109,10 +47,7 @@ const Contact = ({ setActiveSection = () => {} }) => {
         }
     }, [inView, setActiveSection]);
 
-    const handleCloseSnackbar = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
+    const handleCloseSnackbar = () => {
         setSnackbar(prev => ({ ...prev, open: false }));
     };
 
@@ -127,7 +62,6 @@ const Contact = ({ setActiveSection = () => {} }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        setSubmitStatus({ success: null, message: '' });
 
         if (!formData.name || !formData.email || !formData.message) {
             setSnackbar({
@@ -141,8 +75,8 @@ const Contact = ({ setActiveSection = () => {} }) => {
 
         try {
             await emailjs.send(
-                process.env.REACT_APP_EMAILJS_SERVICE_ID,
-                process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+                'service_default', // Placeholder or use process.env if available
+                'template_default',
                 {
                     name: formData.name,
                     email: formData.email,
@@ -150,25 +84,10 @@ const Contact = ({ setActiveSection = () => {} }) => {
                     message: formData.message,
                     to_email: 'adekunlequadri3@gmail.com'
                 },
-                process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+                'public_key'
             );
 
-            if (process.env.REACT_APP_EMAILJS_AUTOREPLY_TEMPLATE_ID) {
-                await emailjs.send(
-                    process.env.REACT_APP_EMAILJS_SERVICE_ID,
-                    process.env.REACT_APP_EMAILJS_AUTOREPLY_TEMPLATE_ID,
-                    {
-                        name: formData.name,
-                        email: formData.email,
-                        subject: formData.subject,
-                        message: formData.message
-                    },
-                    process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-                );
-            }
-
             setFormData({ name: '', email: '', subject: '', message: '' });
-            
             setSnackbar({
                 open: true,
                 message: 'Message sent successfully! I will get back to you soon.',
@@ -178,7 +97,7 @@ const Contact = ({ setActiveSection = () => {} }) => {
             console.error('Failed to send message:', error);
             setSnackbar({
                 open: true,
-                message: 'Failed to send message. Please check your network or try again later.',
+                message: 'Failed to send message. Please try again later.',
                 severity: 'error'
             });
         } finally {
@@ -187,9 +106,9 @@ const Contact = ({ setActiveSection = () => {} }) => {
     };
 
     const contactInfo = [
-        { icon: <FaMapMarkerAlt />, title: 'Location:', text: 'Lagos, Nigeria' },
-        { icon: <FaEnvelope />, title: 'Email:', text: 'adekunlequadri3@gmail.com', link: 'mailto:adekunlequadri3@gmail.com' },
-        { icon: <FaPhone />, title: 'Call or WhatsApp:', text: '+234 704 2277 326', link: 'tel:+2347042277326' }
+        { icon: <FaEnvelope />, title: 'Email', text: 'adekunlequadri3@gmail.com', link: 'mailto:adekunlequadri3@gmail.com' },
+        { icon: <FaPhone />, title: 'Phone', text: '+234 704 2277 326', link: 'tel:+2347042277326' },
+        { icon: <FaMapMarkerAlt />, title: 'Location', text: 'Lagos, Nigeria', link: null }
     ];
 
     const socialLinks = [
@@ -199,282 +118,111 @@ const Contact = ({ setActiveSection = () => {} }) => {
         { icon: <FaWhatsapp />, url: 'https://wa.me/2347042277326', name: 'WhatsApp' }
     ];
 
-    // Animation variants
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1, delayChildren: 0.3 }
-        }
-    };
-
-    const itemVariants = {
-        hidden: { y: 20, opacity: 0 },
-        visible: {
-            y: 0, opacity: 1,
-            transition: { type: 'spring', stiffness: 100, damping: 12 }
-        }
-    };
-
-    const formContainerVariants = { 
-        hidden: { scale: 0.95, opacity: 0 },
-        visible: {
-            scale: 1, opacity: 1,
-            transition: { type: 'spring', stiffness: 100, delay: 0.2 }
-        }
-    };
-
     return (
         <section id="contact" ref={ref} className="contact-section">
             <div className="container">
                 <motion.div 
-                    className="section-header text-center mb-5"
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
+                    className="section-header"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6 }}
                 >
-                    <h3 className="display-6 fw-bold mb-3" style={{ color: 'white' }}>Get In Touch</h3>
-                    <p className="lead" style={{ color: 'white', opacity: 0.9 }}>Let's work together on your next project</p>
+                    <h2 className="section-title"><span className="primary-gradient">Contact</span></h2>
+                    <p className="section-subtitle">Have a project in mind? Reach out and let's build something exceptional together.</p>
                 </motion.div>
 
-                <div className="row g-4">
-                    {/* Contact Info & Social Links */}
+                <div className="contact-grid">
                     <motion.div 
-                        className="col-lg-5"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate={inView ? "visible" : "hidden"}
+                        className="contact-info-column"
+                        initial={{ opacity: 0, x: -30 }}
+                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.6 }}
                     >
-                        {contactInfo.map((item, index) => (
-                            <motion.div key={index} className="mb-4" variants={itemVariants}>
-                                <ContactCard>
-                                    <CardContent className="p-4 d-flex align-items-center">
-                                        <div className="contact-icon me-4" style={{ color: 'var(--color-primary)' }}>
-                                            {React.cloneElement(item.icon, { size: 28 })}
-                                        </div>
-                                        <div>
-                                            <h5 className="mb-1 fw-semibold">{item.title}</h5>
-                                            {item.link ? (
-                                                <a href={item.link} className="text-decoration-none text-primary" target="_blank" rel="noopener noreferrer">
-                                                    {item.text}
-                                                </a>
-                                            ) : (
-                                                <p className="mb-0" style={{ color: 'var(--color-primary)', opacity: 0.9 }}>{item.text}</p>
-                                            )}
-                                        </div>
-                                    </CardContent>
-                                </ContactCard>
-                            </motion.div>
-                        ))}
+                        <div className="info-cards">
+                            {contactInfo.map((item, index) => (
+                                <div key={index} className="info-card glass-card">
+                                    <div className="info-icon">{item.icon}</div>
+                                    <div className="info-text">
+                                        <h4>{item.title}</h4>
+                                        {item.link ? <a href={item.link}>{item.text}</a> : <p>{item.text}</p>}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
 
-                        <motion.div className="social-section mt-4 text-center" variants={itemVariants}>
-                            <h5 className="mb-3 fw-semibold">Connect With Me</h5>
-                            <div className="d-flex justify-content-center">
+                        <div className="social-links-wrap">
+                            <h4>Follow Me</h4>
+                            <div className="social-grid">
                                 {socialLinks.map((social, index) => (
-                                    <SocialIcon key={index} href={social.url.trim()} target="_blank" rel="noopener noreferrer" aria-label={social.name}>
+                                    <a 
+                                        key={index} 
+                                        href={social.url} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        className="social-btn glass"
+                                        aria-label={social.name}
+                                    >
                                         {social.icon}
-                                    </SocialIcon>
+                                    </a>
                                 ))}
                             </div>
-                        </motion.div>
+                        </div>
                     </motion.div>
 
-                    {/* Contact Form */}
                     <motion.div 
-                        className="col-lg-7"
-                        variants={formContainerVariants}
-                        initial="hidden"
-                        animate={inView ? "visible" : "hidden"}
+                        className="contact-form-column"
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.6 }}
                     >
-                        <StyledCard>
-                            <CardContent sx={{ 
-                                backgroundColor: 'var(--color-primary)',
-                                textAlign: 'center',
-                                py: 2,
-                                '&:last-child': { paddingBottom: 2 }
-                            }}>
-                                <Typography variant="h5" component="h2" sx={{ color: 'common.white', fontWeight: 'bold', mb: 0 }}>
-                                    Send Me a Message
-                                </Typography>
-                            </CardContent>
-                            <CardContent>
-                                <form onSubmit={handleSubmit}>
-                                    <div className="row">
-                                        <div className="col-md-6 mb-3">
-                                            <TextField
-                                                fullWidth
-                                                label="Your Name"
-                                                name="name"
-                                                value={formData.name}
-                                                onChange={handleChange}
-                                                variant="outlined"
-                                                required
-                                                sx={{
-                                                    '& .MuiOutlinedInput-root': {
-                                                    '& fieldset': {
-                                                    borderColor: 'text.primary',
-                                                    },
-                                                    '&:hover fieldset': {
-                                                    borderColor: 'primary.main',
-                                                    },
-                                                    '&.Mui-focused fieldset': {
-                                                    borderColor: '',
-                                                    },
-                                                    },
-                                                    '& .MuiInputLabel-root': {
-                                                    color: 'grey',
-                                                    },
-                                                    '& .MuiOutlinedInput-input': {
-                                                    color: 'grey',
-                                                    }
-                                                }}
-                                            />
-                                        </div>
-                                        <div className="col-md-6 mb-3">
-                                            <TextField
-                                                fullWidth
-                                                label="Your Email"
-                                                name="email"
-                                                type="email"
-                                                value={formData.email}
-                                                onChange={handleChange}
-                                                variant="outlined"
-                                                required
-                                                sx={{
-                                                    '& .MuiOutlinedInput-root': {
-                                                    '& fieldset': {
-                                                    borderColor: 'text.primary',
-                                                    },
-                                                    '&:hover fieldset': {
-                                                    borderColor: 'primary.main',
-                                                    },
-                                                    '&.Mui-focused fieldset': {
-                                                    borderColor: '',
-                                                    },
-                                                    },
-                                                    '& .MuiInputLabel-root': {
-                                                    color: 'grey',
-                                                    },
-                                                    '& .MuiOutlinedInput-input': {
-                                                    color: 'grey',
-                                                    }
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <TextField
-                                            fullWidth
-                                            label="Subject"
-                                            name="subject"
-                                            value={formData.subject}
-                                            onChange={handleChange}
-                                            variant="outlined"
-                                            sx={{
-                                                '& .MuiOutlinedInput-root': {
-                                                '& fieldset': {
-                                                borderColor: 'text.primary',
-                                                },
-                                                '&:hover fieldset': {
-                                                borderColor: 'primary.main',
-                                                },
-                                                '&.Mui-focused fieldset': {
-                                                borderColor: '',
-                                                },
-                                                },
-                                                '& .MuiInputLabel-root': {
-                                                color: 'grey',
-                                                },
-                                                '& .MuiOutlinedInput-input': {
-                                                color: 'grey',
-                                                }
-                                            }}
-                                        />
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <TextField
-                                            fullWidth
-                                            label="Your Message"
-                                            name="message"
-                                            value={formData.message}
-                                            onChange={handleChange}
-                                            variant="outlined"
-                                            required
-                                            multiline
-                                            rows={4}
-                                            sx={{
-                                                '& .MuiOutlinedInput-root': {
-                                                '& fieldset': {
-                                                borderColor: 'text.primary',
-                                                },
-                                                '&:hover fieldset': {
-                                                borderColor: 'primary.main',
-                                                },
-                                                '&.Mui-focused fieldset': {
-                                                borderColor: '',
-                                                },
-                                                },
-                                                '& .MuiInputLabel-root': {
-                                                color: 'grey',
-                                                },
-                                                '& .MuiOutlinedInput-input': {
-                                                color: 'grey',
-                                                }
-                                            }}
-                                        />
-                                    </div>
-
-                                    {submitStatus.message && (
-                                        <div
-                                            className={`alert ${submitStatus.success ? 'alert-success' : 'alert-danger'} mt-3`}
-                                            role="alert"
-                                        >
-                                            <div className="d-flex align-items-center">
-                                                {submitStatus.success ? (
-                                                    <FaCheckCircle className="me-2" />
-                                                ) : (
-                                                    <FaTimesCircle className="me-2" />
-                                                )}
-                                                {submitStatus.message}
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    <motion.div 
-                                        className="mt-4 text-end"
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                    >
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            size="large"
-                                            disabled={isSubmitting}
-                                            startIcon={
-                                                isSubmitting ? (
-                                                    <CircularProgress size={20} color="inherit" />
-                                                ) : (
-                                                    <FaPaperPlane />
-                                                )
-                                            }
-                                            sx={{
-                                                backgroundColor: 'var(--color-primary)',
-                                                '&:hover': {
-                                                    backgroundColor: 'var(--color-primary-dark, #B38AF6)',
-                                                },
-                                                '&:disabled': {
-                                                    backgroundColor: 'rgba(203, 172, 249, 0.5)'
-                                                }
-                                            }}
-                                        >
-                                            {isSubmitting ? 'Sending...' : 'Send Message'}
-                                        </Button>
-                                    </motion.div>
-                                </form>
-                            </CardContent>
-                        </StyledCard>
+                        <form onSubmit={handleSubmit} className="contact-form glass-card">
+                            <div className="form-group">
+                                <label>Your Name</label>
+                                <input 
+                                    type="text" 
+                                    name="name" 
+                                    value={formData.name} 
+                                    onChange={handleChange} 
+                                    placeholder="Enter your name"
+                                    required 
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Your Email</label>
+                                <input 
+                                    type="email" 
+                                    name="email" 
+                                    value={formData.email} 
+                                    onChange={handleChange} 
+                                    placeholder="Enter your email"
+                                    required 
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Subject</label>
+                                <input 
+                                    type="text" 
+                                    name="subject" 
+                                    value={formData.subject} 
+                                    onChange={handleChange} 
+                                    placeholder="What's this about?"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Message</label>
+                                <textarea 
+                                    name="message" 
+                                    value={formData.message} 
+                                    onChange={handleChange} 
+                                    placeholder="Let's talk about your project..."
+                                    rows="5"
+                                    required 
+                                />
+                            </div>
+                            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+                                {isSubmitting ? 'Sending...' : 'Send Message'} <FaPaperPlane />
+                            </button>
+                        </form>
                     </motion.div>
                 </div>
             </div>
@@ -483,7 +231,7 @@ const Contact = ({ setActiveSection = () => {} }) => {
                 open={snackbar.open}
                 autoHideDuration={6000}
                 onClose={handleCloseSnackbar}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
             >
                 <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%' }}>
                     {snackbar.message}

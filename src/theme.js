@@ -7,17 +7,19 @@ export const cssVariables = {
   '--card-bg': '#FFFFFF',
   '--border-color': 'rgba(0, 0, 0, 0.12)',
   '--primary-color': '#CBACF9',
+  '--aura-glow': 'rgba(203, 172, 249, 0.3)',
 };
 
 // CSS Variables for dark theme
 export const cssVariablesDark = {
-  '--bg-color': '#121212',
-  '--color-background': '#121212',
-  '--color-text-primary': 'rgba(255, 255, 255, 0.87)',
+  '--bg-color': '#030014',
+  '--color-background': '#030014',
+  '--color-text-primary': 'rgba(255, 255, 255, 0.95)',
   '--color-text-secondary': 'rgba(255, 255, 255, 0.7)',
-  '--card-bg': '#1E1E1E',
-  '--border-color': 'rgba(255, 255, 255, 0.12)',
+  '--card-bg': 'rgba(255, 255, 255, 0.03)',
+  '--border-color': 'rgba(255, 255, 255, 0.1)',
   '--primary-color': '#CBACF9',
+  '--aura-glow': 'rgba(203, 172, 249, 0.5)',
 };
 
 const colors = {
@@ -26,52 +28,50 @@ const colors = {
     main: '#CBACF9',
     light: '#E0CFFC',
     dark: '#9B7BC9',
-    contrastText: '#1A1A1A',
+    contrastText: '#000000',
   },
   secondary: {
-    main: '#4A4A4A',
-    light: '#757575',
-    dark: '#212121',
+    main: '#1A1A1A',
+    light: '#2A2A2A',
+    dark: '#000000',
     contrastText: '#FFFFFF',
   },
   // Status colors
   error: {
-    main: '#F44336',
-    light: '#EF9A9A',
-    dark: '#C62828',
+    main: '#FF4D4D',
+    light: '#FF8080',
+    dark: '#B30000',
   },
   warning: {
-    main: '#FF9800',
-    light: '#FFB74D',
-    dark: '#F57C00',
+    main: '#FFB84D',
+    light: '#FFD180',
+    dark: '#B37400',
   },
   info: {
-    main: '#2196F3',
-    light: '#64B5F6',
-    dark: '#1976D2',
+    main: '#4DABFF',
+    light: '#80C6FF',
+    dark: '#005FB3',
   },
   success: {
-    main: '#4CAF50',
-    light: '#81C784',
-    dark: '#388E3C',
+    main: '#4DFF88',
+    light: '#80FFB3',
+    dark: '#00B33C',
   },
   // Common colors
   common: {
     black: '#000000',
     white: '#FFFFFF',
   },
-  // Grayscale
   grey: {
-    50: '#FAFAFA',
-    100: '#F5F5F5',
-    200: '#EEEEEE',
-    300: '#E0E0E0',
-    400: '#BDBDBD',
-    500: '#9E9E9E',
-    600: '#757575',
-    700: '#616161',
-    800: '#424242',
-    900: '#212121',
+    50: '#FBFBFE',
+    100: '#F7F7F9',
+    200: '#E1E1E6',
+    300: '#C9C9D1',
+    400: '#AFB2BD',
+    500: '#9499AD',
+    700: '#4D525D',
+    800: '#23262F',
+    900: '#141416',
   },
 };
 
@@ -86,67 +86,37 @@ export const theme = {
   spacing: (factor) => `${0.5 * factor}rem`,
   // Shape
   shape: {
-    borderRadius: 8,
+    borderRadius: 12,
   },
   // Typography
   typography: {
-    fontFamily: '"Poppins", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Outfit", "Poppins", sans-serif',
     h1: {
-      fontSize: '3rem',
-      fontWeight: 700,
-      lineHeight: 1.2,
-      fontFamily: '"Poppins", sans-serif',
+      fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
+      fontWeight: 800,
+      lineHeight: 1.1,
+      letterSpacing: '-0.02em',
     },
     h2: {
-      fontSize: '2.5rem',
-      fontWeight: 600,
-      lineHeight: 1.3,
-      fontFamily: '"Poppins", sans-serif',
+      fontSize: 'clamp(2rem, 5vw, 3rem)',
+      fontWeight: 700,
+      lineHeight: 1.2,
+      letterSpacing: '-0.01em',
     },
     h3: {
-      fontSize: '2rem',
+      fontSize: '1.75rem',
       fontWeight: 600,
       lineHeight: 1.3,
-      fontFamily: '"Poppins", sans-serif',
-    },
-    h4: {
-      fontSize: '1.5rem',
-      fontWeight: 500,
-      lineHeight: 1.4,
-      fontFamily: '"Poppins", sans-serif',
-    },
-    h5: {
-      fontSize: '1.25rem',
-      fontWeight: 500,
-      lineHeight: 1.4,
-      fontFamily: '"Poppins", sans-serif',
-    },
-    h6: {
-      fontSize: '1rem',
-      fontWeight: 500,
-      lineHeight: 1.4,
-      fontFamily: '"Poppins", sans-serif',
     },
     body1: {
-      fontSize: '1rem',
-      lineHeight: 1.6,
-      fontFamily: '"Poppins", sans-serif',
-    },
-    body2: {
-      fontSize: '0.875rem',
-      lineHeight: 1.5,
-      fontFamily: '"Poppins", sans-serif',
+      fontSize: '1.125rem',
+      lineHeight: 1.7,
+      color: 'rgba(255, 255, 255, 0.8)',
     },
     button: {
       textTransform: 'none',
-      fontWeight: 500,
-      fontFamily: '"Poppins", sans-serif',
-    },
-    subtitle1: {
-      fontFamily: '"Poppins", sans-serif',
-    },
-    subtitle2: {
-      fontFamily: '"Poppins", sans-serif',
+      fontWeight: 600,
+      letterSpacing: '0.02em',
     },
   },
   // Breakpoints
@@ -159,90 +129,54 @@ export const theme = {
       xl: 1920,
     },
   },
-  // Z-index
-  zIndex: {
-    mobileStepper: 1000,
-    speedDial: 1050,
-    appBar: 1100,
-    drawer: 1200,
-    modal: 1300,
-    snackbar: 1400,
-    tooltip: 1500,
-  },
-  // Transitions
-  transitions: {
-    easing: {
-      easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
-      easeOut: 'cubic-bezier(0.0, 0, 0.2, 1)',
-      easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
-      sharp: 'cubic-bezier(0.4, 0, 0.6, 1)',
+  // Custom Shadows / Effects
+  custom: {
+    glass: {
+      background: 'rgba(255, 255, 255, 0.03)',
+      backdropFilter: 'blur(12px)',
+      border: '1px solid rgba(255, 255, 255, 0.05)',
+      boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
     },
-    duration: {
-      shortest: 150,
-      shorter: 200,
-      short: 250,
-      standard: 300,
-      complex: 375,
-      enteringScreen: 225,
-      leavingScreen: 195,
-    },
+    glow: '0 0 20px rgba(203, 172, 249, 0.3)',
+    aura: '0 0 40px rgba(203, 172, 249, 0.15)',
   },
   // Light theme palette
   palette: {
     mode: 'light',
     ...colors,
     background: {
-      default: '#FFFFFF',
+      default: '#FBFBFE',
       paper: '#FFFFFF',
     },
     text: {
       primary: 'rgba(0, 0, 0, 0.87)',
       secondary: 'rgba(0, 0, 0, 0.6)',
-      disabled: 'rgba(0, 0, 0, 0.38)',
     },
-    action: {
-      active: 'rgba(0, 0, 0, 0.54)',
-      hover: 'rgba(0, 0, 0, 0.04)',
-      selected: 'rgba(0, 0, 0, 0.08)',
-      disabled: 'rgba(0, 0, 0, 0.26)',
-      disabledBackground: 'rgba(0, 0, 0, 0.12)',
-    },
-    divider: 'rgba(0, 0, 0, 0.12)',
   },
-  // Dark theme palette (will be merged when dark mode is enabled)
+  // Dark theme palette
   dark: {
     mode: 'dark',
     ...colors,
     background: {
-      default: '#121212',
-      paper: '#1E1E1E',
+      default: '#030014',
+      paper: 'rgba(255, 255, 255, 0.02)',
     },
     text: {
-      primary: 'rgba(255, 255, 255, 0.87)',
+      primary: 'rgba(255, 255, 255, 0.95)',
       secondary: 'rgba(255, 255, 255, 0.7)',
-      disabled: 'rgba(255, 255, 255, 0.5)',
     },
-    action: {
-      active: '#FFFFFF',
-      hover: 'rgba(255, 255, 255, 0.08)',
-      selected: 'rgba(255, 255, 255, 0.16)',
-      disabled: 'rgba(255, 255, 255, 0.3)',
-      disabledBackground: 'rgba(255, 255, 255, 0.12)',
-    },
-    divider: 'rgba(255, 255, 255, 0.12)',
   },
   // MUI component overrides
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
-          padding: '8px 22px',
-          textTransform: 'none',
-          fontWeight: 500,
-          boxShadow: 'none',
+          borderRadius: 50,
+          padding: '12px 28px',
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           '&:hover': {
-            boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+            transform: 'translateY(-2px)',
+            boxShadow: '0 10px 20px rgba(203, 172, 249, 0.2)',
           },
         },
       },
@@ -250,20 +184,14 @@ export const theme = {
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
-          boxShadow: '0 4px 20px 0 rgba(0,0,0,0.05)',
-          transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+          background: 'rgba(255, 255, 255, 0.025)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255, 255, 255, 0.05)',
+          borderRadius: 20,
           '&:hover': {
-            transform: 'translateY(-4px)',
-            boxShadow: '0 8px 25px 0 rgba(0,0,0,0.1)',
+            borderColor: 'rgba(203, 172, 249, 0.3)',
+            background: 'rgba(255, 255, 255, 0.04)',
           },
-        },
-      },
-    },
-    MuiAppBar: {
-      styleOverrides: {
-        root: {
-          boxShadow: '0 2px 10px 0 rgba(0,0,0,0.1)',
         },
       },
     },

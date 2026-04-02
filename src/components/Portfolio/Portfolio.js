@@ -4,73 +4,95 @@ import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import alterverse from '../../assets/images/porfolio/alterverse.jpeg';
 import construction from '../../assets/images/porfolio/construction.jpeg';
-import homeland from '../../assets/images/porfolio/homeland.jpeg';
 import stoke from '../../assets/images/porfolio/stoke.jpeg';
-import workpod from '../../assets/images/porfolio/workpod.jpeg';
-import movieapp from '../../assets/images/porfolio/movieapp.jpg'
+import albaraka from '../../assets/images/porfolio/albaraka.jpeg';
+import movieapp from '../../assets/images/porfolio/movieapp.jpg';
+import gestureconnect from '../../assets/images/porfolio/gestureconnect.png';
+import safetybuddy from '../../assets/images/porfolio/safetybuddy.png';
+import shelfalert from '../../assets/images/porfolio/shelfalert.png';
 
 import './Portfolio.css';
 
 const projects = [
   {
     id: 1,
-    title: 'Manufacturing Website',
-    description: 'Responsive site designed for a production and manufacturing company, showcasing their factories, products, and team with clean navigation and corporate style.',
+    title: "Alterverse Production",
+    category: "Web Design",
     image: alterverse,
-    tags: ['HTML', 'CSS', 'JavaScript', 'Bootstrap'],
-    category: 'Frontend',
+    description: "A comprehensive agricultural and food production platform focusing on sustainable farming, fresh produce, and food processing.",
+    tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     github: 'https://github.com/iam-donlarry',
-    demo: 'https://alterverse-production.pxxl.click',
+    demo: 'https://alterverse-production.vercel.app',
   },
   {
     id: 2,
-    title: 'Construction Website',
-    description: ' Responsive construction site for Alterverse Group, highlighting real estate development, material supply, and estate planning with sleek design and easy navigation.',
+    title: "Alterverse Construction",
+    category: "Web Design",
     image: construction,
-    tags: ['HTML', 'CSS', 'JavaScript', 'Bootstrap'],
-    category: 'Frontend',
+    description: "A professional construction management portal showcasing infrastructure, commercial, and residential projects with a focus on precision and quality.",
+    tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     github: 'https://github.com/iam-donlarry',
-    demo: 'https://alterverse-construction.pxxl.click',
+    demo: 'https://alterverse-construction.vercel.app',
   },
   {
     id: 3,
-    title: 'Real Estate Website',
-    description: 'A real estate platform designed to browse, rent and buy properties, featuring agent profiles, and a user friendly property listing interface',
-    image: homeland,
-    tags: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MYSQL'],
-    category: 'Web App',
+    title: "Al-Barakah Ethical Business Group",
+    category: "Web Design",
+    image: albaraka,
+    description: "An ethical business platform providing Shariah-compliant financial solutions, including Islamic co-operatives, ethical credit, and leasing services.",
+    tags: ["HTML", "CSS", "JavaScript", "PHP", "Bootstrap"],
     github: 'https://github.com/iam-donlarry',
-    demo: 'https://bayehomessolutions.com.ng/bayehomes/homeland/',
+    demo: 'https://albarakaethicalbusinessgroup.com.ng',
   },
   {
     id: 4,
-    title: 'Shipping & Logistics',
-    description: 'A responsive design built for a maritime logistics firm showcasing services and professionalism with clean visuals and easy navigation',
+    title: "Stoke Marine & Shipping",
+    category: "Web Design",
     image: stoke,
-    tags: ['HTML', 'Bootstrap', 'CSS3', 'PHP'],
-    category: 'Frontend',
+    description: "A premium maritime logistics and offshore consultancy platform providing reliable marine shipping services and global supply chain solutions.",
+    tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     github: 'https://github.com/iam-donlarry',
     demo: 'https://stoke-seagroup.com',
   },
   {
-    id: 5,
-    title: 'Workspace Booking',
-    description: 'A Responsive workspace booking site for offering flexible coworking solutions, seamless online reservations for freelancers and remote teams.',
-    image: workpod,
-    tags: ['HTML', 'CSS3', 'JS','PHP', 'Paystack'],
-    category: 'Web App',
-    github: 'https://github.com/iam-donlarry',
-    demo: 'https://bayehomessolutions.com.ng/workpod',
-  },
-  {
     id: 6,
-    title: 'Movie Application',
-    description: 'A mobile application designed to help users effortlessly discover their next favorite movie or TV show. Powered by The Movie Database (TMDB),',
+    title: "NextFlick Movie App",
+    category: "Mobile App",
     image: movieapp,
-    tags: ['ReactNative', 'TailwindCSS', 'TMDB API','AppWrite'],
-    category: 'Mobile App',
+    description: "A dynamic movie discovery platform with detailed film insights, ratings, and a seamless user experience for cinephiles.",
+    tags: ["React Native", "Tailwind CSS", "TMDB API"],
     github: 'https://github.com/iam-donlarry/nextflick',
     demo: 'https://github.com/iam-donlarry/nextflick',
+  },
+  {
+    id: 7,
+    title: "Gesture Connect",
+    category: "Web App",
+    image: gestureconnect,
+    description: "An AI-powered email platform that translates sign language into text and handles voice-to-text, enabling seamless communication for the deaf and mute community.",
+    tags: ["React", "MediaPipe", "Web Speech API"],
+    github: 'https://github.com/iam-donlarry/gestureconnect',
+    demo: 'https://gestureconnect.pxxl.click/',
+  },
+  {
+    id: 8,
+    title: "SafetyBuddy",
+    category: "Web App",
+    image: safetybuddy,
+    description: "A smart, friendly chatbot that provides quick first-aid guidance and safety tips anytime, anywhere.",
+    tags: ["Next.js", "Gemini API", "Framer Motion"],
+    github: 'https://github.com/iam-donlarry/firstaid-chatbot',
+    demo: 'https://github.com/iam-donlarry/firstaid-chatbot',
+  },
+  {
+    id: 9,
+    title: "ShelfAlert",
+    category: "Web App",
+    image: shelfalert,
+    description: "A web application designed to help businesses monitor product expiry dates and keep inventory safe. It automatically tracks stock and sends timely alerts.",
+    tags: ["HTML", "CSS", "Bootstrap", "PHP", "MySQL"],
+    github: 'https://github.com/iam-donlarry/shelfalert',
+    demo: 'https://github.com/iam-donlarry/shelfalert',
   },
 ];
 
@@ -101,23 +123,22 @@ const Portfolio = ({ setActiveSection = () => {} }) => {
 
   return (
     <section id="portfolio" className="portfolio-section" ref={ref}>
-    
       <div className="container">
         <motion.div 
           className="section-header"
-          initial={{ y: -20, opacity: 0 }}
-          animate={inView ? { y: 0, opacity: 1 } : {}}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
         >
-          <h2>My Portfolio</h2>
-          <p>Check out some of my recent work</p>
+          <h2 className="section-title"><span className="primary-gradient">Portfolio</span></h2>
+          <p className="section-subtitle">A selection of my most impactful projects and applications.</p>
         </motion.div>
 
         <motion.div 
           className="filters"
-          initial={{ y: 20, opacity: 0 }}
-          animate={inView ? { y: 0, opacity: 1 } : {}}
-          transition={{ delay: 0.2, duration: 0.5 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.2 }}
         >
           {categories.map((category) => (
             <button
@@ -131,38 +152,31 @@ const Portfolio = ({ setActiveSection = () => {} }) => {
         </motion.div>
 
         <div className="portfolio-grid">
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}
-              className="portfolio-item"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              whileHover={{ y: -5 }}
+              className="portfolio-card glass-card"
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <div className="portfolio-img">
+              <div className="project-preview">
                 <img src={project.image} alt={project.title} />
-                <div className="portfolio-overlay">
-                  <div className="portfolio-links">
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                      <FaGithub />
-                    </a>
-                    <a href={project.demo} target="_blank" rel="noopener noreferrer" aria-label="Live Demo">
-                      <FaExternalLinkAlt />
-                    </a>
+                <div className="project-hover-overlay">
+                  <div className="project-actions">
+                    <a href={project.github} target="_blank" rel="noreferrer" title="View Code"><FaGithub /></a>
+                    <a href={project.demo} target="_blank" rel="noreferrer" title="Live Demo"><FaExternalLinkAlt /></a>
                   </div>
                 </div>
               </div>
-              <div className="portfolio-content">
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <div className="portfolio-tags">
-                  {project.tags.map((tag, index) => (
-                    <span key={index} className="tag">
-                      {tag}
-                    </span>
+              <div className="project-content">
+                <div className="project-tags">
+                  {project.tags.map((tag, i) => (
+                    <span key={i} className="project-tag">{tag}</span>
                   ))}
                 </div>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
               </div>
             </motion.div>
           ))}

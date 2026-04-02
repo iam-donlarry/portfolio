@@ -6,6 +6,8 @@ import { ThemeProvider } from 'styled-components';
 import { theme as baseTheme } from './theme';
 import GlobalStyles from './components/GlobalStyles';
 
+import { FaArrowUp } from 'react-icons/fa';
+
 // Components
 import CustomNav from './components/CustomNav/CustomNav';
 import About from './components/About/About';
@@ -15,20 +17,10 @@ import Services from './components/Services/Services';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 
-// Scroll to top helper
-const ScrollToTop = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  return null;
-};
-
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
-  const [mode, setMode] = useState(
-    localStorage.getItem('themeMode') ||
-    (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-  );
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [mode] = useState('dark'); // Force dark mode for Aura theme
 
   // Create theme based on mode
   const theme = useMemo(() => {
@@ -41,30 +33,8 @@ const App = () => {
         ...palette,
         mode,
       },
-      components: {
-        ...baseTheme.components,
-        MuiCssBaseline: {
-          styleOverrides: {
-            html: {
-              backgroundColor: palette.background?.default,
-            },
-            body: {
-              backgroundColor: palette.background?.default,
-              color: palette.text?.primary,
-              transition: 'background-color 0.3s ease, color 0.3s ease',
-            },
-          },
-        },
-      },
     });
   }, [mode]);
-
-  // Toggle between light and dark mode
-  const toggleTheme = () => {
-    const nextMode = mode === 'light' ? 'dark' : 'light';
-    setMode(nextMode);
-    localStorage.setItem('themeMode', nextMode);
-  };
 
   // Set theme mode on initial load
   useEffect(() => {
@@ -72,8 +42,15 @@ const App = () => {
   }, [mode]);
 
   // Function to update active section based on scroll position
-  const updateActiveSection = () => {
-    const scrollPosition = window.scrollY + 100;
+  const handleScroll = () => {
+    // Show/hide scroll top button
+    if (window.scrollY > 400) {
+      setShowScrollTop(true);
+    } else {
+      setShowScrollTop(false);
+    }
+
+    const scrollPosition = window.scrollY + 200;
     const sections = ['about', 'portfolio', 'services', 'resume', 'contact'];
     
     for (const section of sections) {
@@ -89,16 +66,15 @@ const App = () => {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // Handle scroll to update active section
   useEffect(() => {
-    // Initial check on mount
-    updateActiveSection();
-    
-    // Add scroll event listener
-    window.addEventListener('scroll', updateActiveSection);
-    
-    // Cleanup
-    return () => window.removeEventListener('scroll', updateActiveSection);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -108,10 +84,23 @@ const App = () => {
           <CssBaseline />
           <GlobalStyles />
           <div className="App">
-            <ScrollToTop />
+            {/* Ambient Aura Background Blobs */}
+            <div className="aura-blob aura-blob-1" />
+            <div className="aura-blob aura-blob-2" />
+            <div className="aura-blob aura-blob-3" />
+            <div className="aura-blob aura-blob-4" />
+
+            {showScrollTop && (
+              <button 
+                className="scroll-top-btn glass" 
+                onClick={scrollToTop}
+                aria-label="Scroll to top"
+              >
+                <FaArrowUp />
+              </button>
+            )}
             <CustomNav 
               activeSection={activeSection} 
-              onToggleTheme={toggleTheme} 
               themeMode={mode} 
             />
             <main>

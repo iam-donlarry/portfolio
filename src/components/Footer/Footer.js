@@ -6,41 +6,26 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const socialLinks = [
-    {
-      icon: <FaGithub />,
-      url: 'https://github.com/iam-donlarry',
-      name: 'GitHub'
-    },
-    {
-      icon: <FaLinkedin />,
-      url: 'https://linkedin.com/in/adekunle-quadri-920038213',
-      name: 'LinkedIn'
-    },
-    {
-      icon: <FaTwitter />,
-      url: 'https://twitter.com/Coredrii',
-      name: 'Twitter'
-    },
-    {
-      icon: <FaWhatsapp />,
-      url: 'https://wa.me/2347042277326',
-      name: 'WhatsApp'
-    }
+    { icon: <FaGithub />, url: 'https://github.com/iam-donlarry', name: 'GitHub' },
+    { icon: <FaLinkedin />, url: 'https://linkedin.com/in/adekunle-quadri-920038213', name: 'LinkedIn' },
+    { icon: <FaTwitter />, url: 'https://twitter.com/Coredrii', name: 'Twitter' },
+    { icon: <FaWhatsapp />, url: 'https://wa.me/2347042277326', name: 'WhatsApp' }
   ];
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer id="footer">
+    <footer className="footer-section">
       <div className="container">
-        <div className="footer-top">
-          <div className="footer-info">
-            <h3>Quadri Adekunle</h3>
-            <p>
-              A passionate Front-End Developer with hands-on experience in PHP and MySQL backend. 
-              I create clean, responsive user interfaces and robust, database-driven applications.
-            </p>
+        <div className="footer-content">
+          <div className="footer-brand" onClick={scrollToTop} style={{ cursor: 'pointer' }}>
+            <h3 className="primary-gradient">Quadri Adekunle</h3>
+            <p>Architecting premium digital experiences with modern web technologies.</p>
           </div>
 
-          <div className="social-links">
+          <div className="footer-links">
             {socialLinks.map((social, index) => (
               <a 
                 key={index} 
@@ -48,7 +33,7 @@ const Footer = () => {
                 target="_blank" 
                 rel="noopener noreferrer"
                 aria-label={social.name}
-                className="social-icon"
+                className="footer-social-icon glass"
               >
                 {social.icon}
               </a>
@@ -56,8 +41,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="copyright">
-          &copy; Copyright {currentYear} <strong>Quadri Adekunle</strong>. All Rights Reserved
+        <div className="footer-bottom">
+          <p>&copy; {currentYear} Quadri Adekunle. All Rights Reserved.</p>
         </div>
       </div>
     </footer>

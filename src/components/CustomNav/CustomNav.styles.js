@@ -5,20 +5,33 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1.5rem;
-  background: ${({ theme }) => theme.palette?.background?.default || '#ffffff'};
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 2rem;
+  background: rgba(3, 0, 20, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease;
+
+  &.scrolled {
+    padding: 0.3rem 2rem;
+    background: rgba(3, 0, 20, 0.8);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 const Logo = styled(ScrollLink)`
   display: flex;
   align-items: center;
   cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 
   img {
     height: 40px;
@@ -29,23 +42,26 @@ const Logo = styled(ScrollLink)`
 const NavMenu = styled.ul`
   display: flex;
   list-style: none;
-  gap: 1.25rem;
+  gap: 2rem;
   margin: 0;
   padding: 0;
   align-items: center;
 
   @media (max-width: 768px) {
     position: fixed;
-    top: 60px;
-    left: 0;
+    top: 0;
     right: 0;
-    background: ${({ theme }) => theme.palette?.background?.default || '#ffffff'};
+    height: 100vh;
+    width: 250px;
+    background: rgba(3, 0, 20, 0.95);
+    backdrop-filter: blur(15px);
     flex-direction: column;
-    padding: 1rem;
-    gap: 0.75rem;
-    transform: ${({ $isOpen }) => ($isOpen ? 'translateX(0)' : 'translateX(-100%)')};
-    transition: transform 0.3s ease-in-out;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    padding: 2rem;
+    gap: 2rem;
+    transform: ${({ $isOpen }) => ($isOpen ? 'translateX(0)' : 'translateX(100%)')};
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -54,47 +70,32 @@ const NavItem = styled.li`
 `;
 
 const NavLink = styled(ScrollLink)`
-  color: ${({ theme }) => theme.palette?.text?.primary || '#333333'};
+  color: ${({ theme }) => theme.palette.text.secondary};
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
   transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
   cursor: pointer;
+  position: relative;
 
   &:hover {
-    color: ${({ theme }) => theme.palette?.primary?.main || '#CBACF9'};
+    color: #CBACF9;
+    text-shadow: 0 0 10px rgba(203, 172, 249, 0.5);
   }
 
   &.active {
-    color: ${({ theme }) => theme.palette?.primary?.main || '#CBACF9'};
+    color: #CBACF9;
     font-weight: 600;
 
     &::after {
       content: '';
       position: absolute;
-      bottom: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 5px;
-      height: 5px;
-      background-color: ${({ theme }) => theme.palette?.primary?.main || '#CBACF9'};
-      border-radius: 50%;
-    }
-  }
-
-  @media (max-width: 768px) {
-    display: block;
-    width: 100%;
-    text-align: center;
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
-
-    &:hover {
-      background: ${({ theme }) => theme.palette?.action?.hover || 'rgba(0, 0, 0, 0.04)'};
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #CBACF9, transparent);
+      border-radius: 2px;
     }
   }
 `;
@@ -103,16 +104,10 @@ const MobileMenuButton = styled.button`
   display: none;
   background: none;
   border: none;
-  color: ${({ theme }) => theme.palette?.text?.primary || '#333333'};
-  font-size: 1.5rem;
+  color: white;
+  font-size: 1.8rem;
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: ${({ theme }) => theme.palette?.action?.hover || 'rgba(0, 0, 0, 0.04)'};
-  }
+  z-index: 1001;
 
   @media (max-width: 768px) {
     display: block;
@@ -122,31 +117,7 @@ const MobileMenuButton = styled.button`
 const RightAligned = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-left: auto; /* Push to the right */
-`;
-
-const ThemeToggle = styled.button`
-  background: none;
-  border: none;
-  color: ${({ theme }) => theme.palette?.text?.primary || '#333333'};
-  font-size: 1.25rem;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: ${({ theme }) => theme.palette?.action?.hover || 'rgba(0, 0, 0, 0.04)'};
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px ${({ theme }) => theme.palette?.primary?.light || '#E0CFFC'};
-  }
+  gap: 1.5rem;
 `;
 
 export {
@@ -156,6 +127,5 @@ export {
   NavItem,
   NavLink,
   MobileMenuButton,
-  ThemeToggle,
   RightAligned
 };
