@@ -74,9 +74,10 @@ const Contact = ({ setActiveSection = () => {} }) => {
         }
 
         try {
+            // 1. Send the main notification to you
             await emailjs.send(
-                'service_default', // Placeholder or use process.env if available
-                'template_default',
+                process.env.REACT_APP_EMAILJS_SERVICE_ID,
+                process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
                 {
                     name: formData.name,
                     email: formData.email,
@@ -84,8 +85,21 @@ const Contact = ({ setActiveSection = () => {} }) => {
                     message: formData.message,
                     to_email: 'adekunlequadri3@gmail.com'
                 },
-                'public_key'
+                process.env.REACT_APP_EMAILJS_PUBLIC_KEY
             );
+
+            // 2. Send the auto-reply to the visitor
+            if (process.env.REACT_APP_EMAILJS_AUTOREPLY_TEMPLATE_ID) {
+                await emailjs.send(
+                    process.env.REACT_APP_EMAILJS_SERVICE_ID,
+                    process.env.REACT_APP_EMAILJS_AUTOREPLY_TEMPLATE_ID,
+                    {
+                        to_name: formData.name,
+                        to_email: formData.email,
+                    },
+                    process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+                );
+            }
 
             setFormData({ name: '', email: '', subject: '', message: '' });
             setSnackbar({
