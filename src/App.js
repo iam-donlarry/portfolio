@@ -16,6 +16,7 @@ import Portfolio from './components/Portfolio/Portfolio';
 import Services from './components/Services/Services';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
+import SplashCursor from './components/Animations/SplashCursor';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -84,6 +85,7 @@ const App = () => {
           <CssBaseline />
           <GlobalStyles />
           <div className="App">
+            <SplashCursor />
             {/* Ambient Aura Background Blobs */}
             <div className="aura-blob aura-blob-1" />
             <div className="aura-blob aura-blob-2" />
@@ -104,21 +106,11 @@ const App = () => {
               themeMode={mode} 
             />
             <main>
-              <section id="about">
-                <About setActiveSection={setActiveSection} activeSection={activeSection} />
-              </section>
-              <section id="portfolio">
-                <Portfolio setActiveSection={setActiveSection} activeSection={activeSection} />
-              </section>
-              <section id="services">
-                <Services setActiveSection={setActiveSection} activeSection={activeSection} />
-              </section>
-              <section id="resume">
-                <Resume setActiveSection={setActiveSection} activeSection={activeSection} />
-              </section>
-              <section id="contact">
-                <Contact setActiveSection={setActiveSection} activeSection={activeSection} />
-              </section>
+              <About setActiveSection={setActiveSection} activeSection={activeSection} />
+              <Portfolio setActiveSection={setActiveSection} activeSection={activeSection} />
+              <Services setActiveSection={setActiveSection} activeSection={activeSection} />
+              <Resume setActiveSection={setActiveSection} activeSection={activeSection} />
+              <Contact setActiveSection={setActiveSection} activeSection={activeSection} />
             </main>
             <Footer />
           </div>

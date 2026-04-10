@@ -18,7 +18,7 @@ Professional portfolio website of Quadri Adekunle, a Full Stack Developer and UI
 - **Styling**: Material-UI, Styled Components, CSS3
 - **Animation**: Framer Motion
 - **Build Tool**: Create React App
-- **Deployment**: Netlify/GitHub Pages
+- **Deployment**: Vercel/GitHub Pages
 - **SEO**: React Helmet, JSON-LD, Sitemap
 
 ## 📦 Installation

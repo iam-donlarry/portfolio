@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import BlurText from '../Animations/BlurText';
+import TiltedCard from '../Animations/TiltedCard';
 import './About.css';
 
 const About = ({ setActiveSection = () => {} }) => {
@@ -40,7 +42,13 @@ const About = ({ setActiveSection = () => {} }) => {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <h1 className="hero-title">
-              Crafting <span className="primary-gradient text-glow">Digital Experiences</span> With Precision
+              <BlurText 
+                text="Crafting Digital Experiences With Precision"
+                delay={150}
+                animateBy="words"
+                direction="top"
+                className="hero-title-blur"
+              />
             </h1>
             <p className="hero-subtitle">
               Hi, I'm <span className="text-white font-bold">Quadri Adekunle</span>. A Web Developer dedicated to building high-performance, visually stunning web applications.
@@ -59,9 +67,24 @@ const About = ({ setActiveSection = () => {} }) => {
             transition={{ duration: 1, delay: 0.2 }}
           >
             <div className="glass-profile-card">
-              <div className="profile-img-wrap">
-                <img src="/images/profile-image.png" alt="Quadri Adekunle" />
-              </div>
+              <TiltedCard
+                imageSrc="/images/profile-image.png"
+                altText="Quadri Adekunle"
+                captionText="Quadri Adekunle"
+                containerHeight="300px"
+                containerWidth="300px"
+                imageHeight="300px"
+                imageWidth="300px"
+                rotateAmplitude={12}
+                scaleOnHover={1.05}
+                showTooltip={false}
+                displayOverlayContent={true}
+                overlayContent={
+                  <div className="tilted-card-overlay-content">
+                    {/* Elements can go here if needed */}
+                  </div>
+                }
+              />
               <div className="profile-details">
                 <h3>Web Developer</h3>
                 <div className="social-pills">
@@ -84,7 +107,7 @@ const About = ({ setActiveSection = () => {} }) => {
           <div className="ticker-items">
             {skills.map((skill, index) => (
               <div key={index} className="ticker-item" title={skill.name}>
-                <img src={skill.src} alt={skill.name} />
+                <img src={skill.src} alt={skill.name} loading="lazy" width="32" height="32" />
               </div>
             ))}
           </div>

@@ -161,7 +161,7 @@ const Portfolio = ({ setActiveSection = () => {} }) => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <div className="project-preview">
-                <img src={project.image} alt={project.title} />
+                <img src={project.image} alt={project.title} loading="lazy" width="800" height="500" />
                 <div className="project-hover-overlay">
                   <div className="project-actions">
                     <a href={project.github} target="_blank" rel="noreferrer" title="View Code"><FaGithub /></a>

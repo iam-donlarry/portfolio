@@ -22,6 +22,20 @@
   margin-bottom: 24px;
 }
 
+.hero-title-blur {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 991px) {
+  .hero-title-blur {
+    justify-content: center;
+  }
+}
+
 .hero-subtitle {
   font-size: 1.25rem;
   color: rgba(255, 255, 255, 0.7);

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import { FaLaptopCode, FaMobileAlt, FaServer, FaDatabase, FaSearch, FaRocket } from 'react-icons/fa';
+import SpotlightCard from '../Animations/SpotlightCard';
 import './Services.css';
 
 const Services = ({ setActiveSection = () => {} }) => {
@@ -9,18 +10,6 @@ const Services = ({ setActiveSection = () => {} }) => {
     threshold: 0.1,
     triggerOnce: false,
   });
-
-  const [hoveredId, setHoveredId] = useState(null);
-
-  const handleMouseMove = (e, id) => {
-    if (hoveredId === id) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-      e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-    }
-  };
 
   useEffect(() => {
     if (inView) {
@@ -82,27 +71,28 @@ const Services = ({ setActiveSection = () => {} }) => {
 
         <div className="services-grid">
           {services.map((service, index) => (
-            <motion.div
+            <SpotlightCard
               key={service.id}
-              className="service-card glass-card"
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              onMouseEnter={() => setHoveredId(service.id)}
-              onMouseMove={(e) => handleMouseMove(e, service.id)}
-              onMouseLeave={() => setHoveredId(null)}
+              className="service-card-wrap glass-card"
+              spotlightColor="rgba(203, 172, 249, 0.2)"
             >
-              <div className="service-icon-wrap">
-                <div className="service-icon-inner">
-                  {service.icon}
+              <motion.div
+                className="service-card"
+                initial={{ opacity: 0, y: 30 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <div className="service-icon-wrap">
+                  <div className="service-icon-inner">
+                    {service.icon}
+                  </div>
                 </div>
-              </div>
-              <div className="service-info">
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-              </div>
-              <div className="service-glow" />
-            </motion.div>
+                <div className="service-info">
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                </div>
+              </motion.div>
+            </SpotlightCard>
           ))}
         </div>
       </div>
