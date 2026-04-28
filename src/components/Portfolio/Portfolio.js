@@ -22,7 +22,7 @@ const projects = [
     description: "A comprehensive agricultural and food production platform focusing on sustainable farming, fresh produce, and food processing.",
     tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     github: 'https://github.com/iam-donlarry',
-    demo: 'https://alterverse-production.vercel.app',
+    demo: 'https://alterverseproduction.com',
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const projects = [
     description: "A professional construction management portal showcasing infrastructure, commercial, and residential projects with a focus on precision and quality.",
     tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
     github: 'https://github.com/iam-donlarry',
-    demo: 'https://alterverse-construction.vercel.app',
+    demo: 'https://alterverseconstruction.com',
   },
   {
     id: 3,
