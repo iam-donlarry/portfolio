@@ -71,8 +71,8 @@ const projects = [
     image: gestureconnect,
     description: "An AI-powered email platform that translates sign language into text and handles voice-to-text, enabling seamless communication for the deaf and mute community.",
     tags: ["React", "MediaPipe", "Web Speech API"],
-    github: 'https://github.com/iam-donlarry/gestureconnect',
-    demo: 'https://gestureconnect.pxxl.click/',
+    github: 'https://github.com/iam-donlarry/gestureaid',
+    demo: 'https://github.com/iam-donlarry/gestureaid',
   },
   {
     id: 8,
