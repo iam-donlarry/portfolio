@@ -1,12 +1,10 @@
-const { Resend } = require('resend');
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+const nodemailer = require('nodemailer');
 
 /**
- * Owner Notification Email Template (Dark modern theme matching website)
+ * Owner Notification Email Template (Dark modern theme matching website with Outfit font & logo2.svg)
  */
 function getOwnerNotificationTemplate({ name, email, subject, message }) {
-  const logoUrl = 'https://quadriadekunle.vercel.app/logo.png';
+  const logoUrl = 'https://quadriadekunle.vercel.app/logo2.svg';
   const siteUrl = 'https://quadriadekunle.vercel.app';
   
   return `
@@ -16,12 +14,15 @@ function getOwnerNotificationTemplate({ name, email, subject, message }) {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>New Portfolio Contact Message</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
       <style>
         body {
           margin: 0;
           padding: 0;
           background-color: #030014;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
           color: #ffffff;
           -webkit-font-smoothing: antialiased;
         }
@@ -175,10 +176,10 @@ function getOwnerNotificationTemplate({ name, email, subject, message }) {
 }
 
 /**
- * Client Auto-Reply Email Template (Branded for Quadri Adekunle)
+ * Client Auto-Reply Email Template (Branded for Quadri Adekunle with Outfit font & logo2.svg)
  */
 function getClientAutoReplyTemplate({ name, subject, message }) {
-  const logoUrl = 'https://quadriadekunle.vercel.app/logo.png';
+  const logoUrl = 'https://quadriadekunle.vercel.app/logo2.svg';
   const siteUrl = 'https://quadriadekunle.vercel.app';
   
   return `
@@ -188,12 +189,15 @@ function getClientAutoReplyTemplate({ name, subject, message }) {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Thank you for reaching out!</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
       <style>
         body {
           margin: 0;
           padding: 0;
           background-color: #030014;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
           color: #ffffff;
           -webkit-font-smoothing: antialiased;
         }
@@ -376,29 +380,45 @@ module.exports = async function handler(req, res) {
       return res.status(400).json({ error: 'Name, email, and message are required.' });
     }
 
-    const fromEmail = process.env.RESEND_FROM_EMAIL || 'Portfolio Contact <onboarding@resend.dev>';
+    const gmailUser = process.env.GMAIL_USER || 'adekunlequadri3@gmail.com';
+    const gmailPass = process.env.GMAIL_PASS;
+
+    if (!gmailPass) {
+      return res.status(500).json({
+        error: 'GMAIL_PASS is not configured in environment variables.',
+      });
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: gmailUser,
+        pass: gmailPass.replace(/\s+/g, ''), // Strip spaces if any
+      },
+    });
+
     const toOwnerEmail = process.env.CONTACT_NOTIFICATION_EMAIL || 'adekunlequadri3@gmail.com';
 
     // 1. Notification to Quadri (Owner)
-    const ownerEmailPromise = resend.emails.send({
-      from: fromEmail,
+    const ownerMailOptions = {
+      from: `"Portfolio Contact" <${gmailUser}>`,
       to: toOwnerEmail,
-      subject: `New Portfolio Message: ${subject || 'General Inquiry'} from ${name}`,
       replyTo: email,
+      subject: `New Portfolio Message: ${subject || 'General Inquiry'} from ${name}`,
       html: getOwnerNotificationTemplate({ name, email, subject, message }),
-    });
+    };
 
     // 2. Auto-reply to Client/Visitor
-    const clientAutoReplyPromise = resend.emails.send({
-      from: fromEmail,
+    const clientMailOptions = {
+      from: `"Quadri Adekunle" <${gmailUser}>`,
       to: email,
       subject: `Thank you for reaching out, ${name}! - Quadri Adekunle`,
       html: getClientAutoReplyTemplate({ name, subject, message }),
-    });
+    };
 
     const [ownerResult, clientResult] = await Promise.allSettled([
-      ownerEmailPromise,
-      clientAutoReplyPromise,
+      transporter.sendMail(ownerMailOptions),
+      transporter.sendMail(clientMailOptions),
     ]);
 
     if (ownerResult.status === 'rejected') {
