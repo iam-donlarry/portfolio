@@ -11,7 +11,6 @@ import {
     FaTwitter,
     FaWhatsapp,
 } from 'react-icons/fa';
-import emailjs from '@emailjs/browser';
 import { 
     Snackbar, 
     Alert 
@@ -74,31 +73,18 @@ const Contact = ({ setActiveSection = () => {} }) => {
         }
 
         try {
-            // 1. Send the main notification to you
-            await emailjs.send(
-                process.env.REACT_APP_EMAILJS_SERVICE_ID,
-                process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-                {
-                    name: formData.name,
-                    email: formData.email,
-                    subject: formData.subject,
-                    message: formData.message,
-                    to_email: 'adekunlequadri3@gmail.com'
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-            );
+                body: JSON.stringify(formData),
+            });
 
-            // 2. Send the auto-reply to the visitor
-            if (process.env.REACT_APP_EMAILJS_AUTOREPLY_TEMPLATE_ID) {
-                await emailjs.send(
-                    process.env.REACT_APP_EMAILJS_SERVICE_ID,
-                    process.env.REACT_APP_EMAILJS_AUTOREPLY_TEMPLATE_ID,
-                    {
-                        to_name: formData.name,
-                        to_email: formData.email,
-                    },
-                    process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-                );
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to send message.');
             }
 
             setFormData({ name: '', email: '', subject: '', message: '' });
@@ -111,7 +97,7 @@ const Contact = ({ setActiveSection = () => {} }) => {
             console.error('Failed to send message:', error);
             setSnackbar({
                 open: true,
-                message: 'Failed to send message. Please try again later.',
+                message: error.message || 'Failed to send message. Please try again later.',
                 severity: 'error'
             });
         } finally {
