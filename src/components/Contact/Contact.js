@@ -81,6 +81,11 @@ const Contact = ({ setActiveSection = () => {} }) => {
                 body: JSON.stringify(formData),
             });
 
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+                throw new Error('Serverless function route unavailable on local dev server. Deploy to Vercel or run `vercel dev` to test email dispatches.');
+            }
+
             const data = await response.json();
 
             if (!response.ok) {
