@@ -1,28 +1,3 @@
 {
-  "rewrites": [
-    { 
-      "source": "/api/(.*)", 
-      "destination": "/api/$1" 
-    },
-    { 
-      "source": "/static/(.*)", 
-      "destination": "/static/$1" 
-    },
-    { 
-      "source": "/favicon.ico", 
-      "destination": "/favicon.ico" 
-    },
-    { 
-      "source": "/robots.txt", 
-      "destination": "/robots.txt" 
-    },
-    { 
-      "source": "/sitemap.xml", 
-      "destination": "/sitemap.xml" 
-    },
-    { 
-      "source": "/((?!api/).*)", 
-      "destination": "/index.html" 
-    }
-  ]
+  "framework": "nextjs"
 }

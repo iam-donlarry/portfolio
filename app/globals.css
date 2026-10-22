@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* User Signature Color from logo2.svg: #915DFF (No multi-color gradients) */
+  --brand: #915DFF;
+  --brand-hover: #A273FF;
+  --brand-dark: #7A40F5;
+  --brand-dim: rgba(145, 93, 255, 0.12);
+  --brand-border: rgba(145, 93, 255, 0.35);
+  --brand-glow: 0 0 25px rgba(145, 93, 255, 0.45);
+
+  /* Deep Cyber Palette */
+  --bg-desktop: #040408;
+  --bg-window: rgba(10, 10, 20, 0.92);
+  --bg-card: rgba(16, 16, 32, 0.85);
+
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: #A1A1AA;
+  --text-muted: #71717A;
+
+  /* Fonts */
+  --font-sans: 'Outfit', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: #05050A;
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--brand);
+  color: #040408;
+}
+
+/* Custom Cyber Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 20, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-hover);
+}
+
+/* Cyber Grid Background */
+.cyber-os-bg {
+  position: fixed;
+  inset: 0;
+  background-color: #040408;
+  background-image: 
+    linear-gradient(to right, rgba(145, 93, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(145, 93, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scanline effect */
+.scanline-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 38, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.35;
+  z-index: 1;
+}
+
+/* Glowing Solid Accent Utilities (Zero Gradients) */
+.brand-glow {
+  box-shadow: 0 0 20px rgba(145, 93, 255, 0.45);
+}
+
+.brand-border {
+  border: 1px solid var(--brand);
+}
+
+.brand-text {
+  color: var(--brand);
+}
+
+.brand-bg {
+  background-color: var(--brand);
+  color: #000000;
+}
