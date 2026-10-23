@@ -44,9 +44,11 @@ export const metadata: Metadata = {
     images: ['/og-image.png'],
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/logo.png',
+    icon: [
+      { url: '/Avatar.png', type: 'image/png' },
+    ],
+    shortcut: '/Avatar.png',
+    apple: '/Avatar.png',
   },
 };
 
@@ -64,6 +66,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth">
       <head>
+        <link rel="icon" href="/Avatar.png" type="image/png" />
+        <link rel="shortcut icon" href="/Avatar.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/Avatar.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
