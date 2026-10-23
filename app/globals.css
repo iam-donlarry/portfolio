@@ -124,3 +124,27 @@ body {
   scrollbar-width: none;
 }
 
+/* Cinematic Warp Progress Keyframe */
+@keyframes warpProgress {
+  0% {
+    width: 0%;
+    opacity: 0.6;
+  }
+  30% {
+    width: 35%;
+    opacity: 0.85;
+  }
+  75% {
+    width: 85%;
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+.animate-warpProgress {
+  animation: warpProgress 2.1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+

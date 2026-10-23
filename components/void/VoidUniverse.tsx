@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { RealmId } from './VoidScene';
 import VoidOverlay from './VoidOverlay';
+import { voidAudio } from './VoidAudio';
 
 // Isolate 3D Three.js canvas behind dynamic import with SSR disabled
 const VoidScene = dynamic(() => import('./VoidScene'), {
@@ -31,6 +32,7 @@ export default function VoidUniverse({
 }: VoidUniverseProps): React.JSX.Element {
   const [currentRealm, setCurrentRealm] = useState<RealmId>(initialRealm);
   const [isEntered, setIsEntered] = useState<boolean>(initialRealm !== 'nexus');
+  const [isWarping, setIsWarping] = useState<boolean>(false);
 
   useEffect(() => {
     if (initialRealm !== 'nexus') return;
@@ -56,14 +58,23 @@ export default function VoidUniverse({
   }, []);
 
   const handleEnterVoid = useCallback(() => {
-    setIsEntered(true);
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('void_entered', 'true');
-    }
+    setIsWarping(true);
+    voidAudio.playWarpJump();
+
+    // 2.1s cinematic hyperspace travel sequence
+    setTimeout(() => {
+      setIsWarping(false);
+      setIsEntered(true);
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('void_entered', 'true');
+      }
+    }, 2100);
   }, []);
 
   const handleExitVoid = useCallback(() => {
+    voidAudio.playWarpExit();
     setIsEntered(false);
+    setIsWarping(false);
     setCurrentRealm('nexus');
     if (typeof window !== 'undefined') {
       sessionStorage.removeItem('void_entered');
@@ -100,6 +111,7 @@ export default function VoidUniverse({
         currentRealm={currentRealm}
         onSelectRealm={handleSelectRealm}
         isEntered={isEntered}
+        isWarping={isWarping}
         onEnterVoid={handleEnterVoid}
       />
 
@@ -108,6 +120,7 @@ export default function VoidUniverse({
         currentRealm={currentRealm}
         onSelectRealm={handleSelectRealm}
         isEntered={isEntered}
+        isWarping={isWarping}
         onEnterVoid={handleEnterVoid}
         onExitVoid={handleExitVoid}
         initialProjectId={initialProjectId}

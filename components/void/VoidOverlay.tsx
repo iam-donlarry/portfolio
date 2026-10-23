@@ -30,6 +30,7 @@ interface VoidOverlayProps {
   onEnterVoid: () => void;
   onExitVoid?: () => void;
   initialProjectId?: string;
+  isWarping?: boolean;
 }
 
 export default function VoidOverlay({
@@ -39,6 +40,7 @@ export default function VoidOverlay({
   onEnterVoid,
   onExitVoid,
   initialProjectId,
+  isWarping = false,
 }: VoidOverlayProps): React.JSX.Element {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [showKeyHints, setShowKeyHints] = useState(false);
@@ -108,9 +110,9 @@ export default function VoidOverlay({
   return (
     <div className="fixed inset-0 pointer-events-none z-20 flex flex-col justify-between">
       {/* ========================================================= */}
-      {/* 1. THE THRESHOLD: OPENING SCENE OVERLAY */}
+      {/* 1. THE THRESHOLD & QUANTUM WARP FLIGHT OVERLAY */}
       {/* ========================================================= */}
-      {!isEntered && (
+      {!isEntered && !isWarping && (
         <div className="fixed inset-0 pointer-events-auto bg-black/65 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center z-50 animate-fadeIn">
           {/* Subtle Ambient Ring */}
           <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full border border-purple-500/20 animate-spin-slow pointer-events-none" />
@@ -136,7 +138,6 @@ export default function VoidOverlay({
               <button
                 onClick={() => {
                   onEnterVoid();
-                  voidAudio.playPulse(550);
                 }}
                 className="w-full sm:w-auto px-10 py-4 rounded-2xl font-display font-black text-sm uppercase tracking-widest bg-gradient-to-r from-[#915DFF] via-purple-500 to-cyan-400 text-black hover:opacity-95 hover:shadow-[0_0_35px_#915DFF] transition-all transform hover:scale-105 cursor-pointer flex items-center justify-center gap-3"
               >
@@ -147,6 +148,41 @@ export default function VoidOverlay({
 
             <div className="font-mono text-[10px] text-slate-500 pt-6">
               WebGL 3D Accelerated • Spatial Audio Enabled • Built inside Next.js
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Cinematic Warp Flight HUD during travel */}
+      {isWarping && (
+        <div className="fixed inset-0 pointer-events-none flex flex-col items-center justify-center p-6 z-50 animate-fadeIn">
+          {/* Radial Warp Speed Vignette */}
+          <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#915DFF]/15 to-cyan-500/25 backdrop-blur-[2px] animate-pulse" />
+
+          {/* Central Cockpit Flight Telemetry Card */}
+          <div className="relative flex flex-col items-center max-w-md w-full p-6 sm:p-8 rounded-3xl bg-black/80 border border-cyan-400/40 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,240,255,0.4)] text-center space-y-4">
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-400/50 text-[10px] sm:text-xs font-mono tracking-widest text-cyan-300 uppercase shadow-[0_0_20px_rgba(0,240,255,0.3)]">
+              <FaRocket className="text-xs text-cyan-400 animate-bounce" />
+              <span>QUANTUM WARP DRIVE ENGAGED</span>
+            </div>
+
+            <div className="space-y-1">
+              <div className="font-mono text-[11px] sm:text-xs text-slate-400 uppercase tracking-widest">
+                VELOCITY // ACCELERATING TO SUBLIGHT
+              </div>
+              <div className="font-display text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-[#915DFF] tracking-tight">
+                0.99<span className="text-2xl text-cyan-400 font-mono">c</span>
+              </div>
+            </div>
+
+            {/* Kinetic Warp Acceleration Bar */}
+            <div className="w-full bg-black/90 rounded-full h-2.5 overflow-hidden border border-white/20 p-0.5 shadow-inner">
+              <div className="h-full bg-gradient-to-r from-cyan-400 via-[#915DFF] to-pink-500 rounded-full animate-warpProgress shadow-[0_0_20px_#00f0ff]" />
+            </div>
+
+            <div className="flex items-center justify-between w-full font-mono text-[10px] sm:text-[11px] text-slate-300 pt-1">
+              <span className="text-cyan-400 font-bold">VECTOR: SECTOR 00</span>
+              <span className="text-purple-300 animate-pulse font-bold">ORBITAL INSERTION...</span>
             </div>
           </div>
         </div>

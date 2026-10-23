@@ -110,17 +110,21 @@ interface VoidSceneProps {
   onSelectRealm: (realm: RealmId) => void;
   isEntered: boolean;
   onEnterVoid: () => void;
+  isWarping?: boolean;
 }
 
 export default function VoidScene({
   currentRealm,
   onSelectRealm,
   isEntered,
+  isWarping = false,
 }: VoidSceneProps): React.JSX.Element {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [hoveredRealm, setHoveredRealm] = useState<RealmConfig | null>(null);
   const [isUserDragging, setIsUserDragging] = useState<boolean>(false);
+  const isWarpingRef = useRef<boolean>(isWarping);
+  isWarpingRef.current = isWarping;
 
   // Scene references
   const sceneRef = useRef<THREE.Scene | null>(null);
@@ -130,17 +134,19 @@ export default function VoidScene({
   const realmMeshesRef = useRef<Map<RealmId, THREE.Group>>(new Map());
   const orbitLinesMapRef = useRef<Map<RealmId, THREE.LineLoop>>(new Map());
 
-  // Orbital Navigation State
+  // Orbital Navigation State: Start in deep cosmos (distance 190) before entering void!
+  const initialRadius = isEntered ? 54 : 190;
+  const initialTheta = isEntered ? 0 : -0.35;
   const sphericalRef = useRef({
-    radius: 56,
-    theta: 0,
-    phi: Math.PI / 2.5,
+    radius: initialRadius,
+    theta: initialTheta,
+    phi: Math.PI / 2.35,
   });
 
   const targetSphericalRef = useRef({
-    radius: 56,
-    theta: 0,
-    phi: Math.PI / 2.5,
+    radius: initialRadius,
+    theta: initialTheta,
+    phi: Math.PI / 2.35,
   });
 
   const lookAtRef = useRef(new THREE.Vector3(0, 0, 0));
@@ -171,8 +177,8 @@ export default function VoidScene({
     sceneRef.current = scene;
 
     // Camera
-    const camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 1200);
-    camera.position.set(0, 8, 56);
+    const camera = new THREE.PerspectiveCamera(55, width / height, 0.1, 1400);
+    camera.position.set(0, 8, initialRadius);
     camera.lookAt(0, 0, 0);
     cameraRef.current = camera;
 
@@ -376,6 +382,55 @@ export default function VoidScene({
       star.length = 6 + Math.random() * 7;
       star.active = true;
     };
+
+    // ==========================================
+    // 5.2 HYPERSPACE WARP TUNNEL STREAK LINES
+    // ==========================================
+    const warpStreakCount = 180;
+    const warpGeo = new THREE.BufferGeometry();
+    const warpPositions = new Float32Array(warpStreakCount * 2 * 3);
+    const warpColors = new Float32Array(warpStreakCount * 2 * 3);
+
+    for (let i = 0; i < warpStreakCount; i++) {
+      const i6 = i * 6;
+      const angle = Math.random() * Math.PI * 2;
+      const r = 5 + Math.random() * 45;
+      const zStart = -80 + Math.random() * 220;
+      const length = 15 + Math.random() * 35;
+
+      warpPositions[i6] = Math.cos(angle) * r;
+      warpPositions[i6 + 1] = Math.sin(angle) * r;
+      warpPositions[i6 + 2] = zStart;
+
+      warpPositions[i6 + 3] = Math.cos(angle) * r;
+      warpPositions[i6 + 4] = Math.sin(angle) * r;
+      warpPositions[i6 + 5] = zStart + length;
+
+      const isCyan = Math.random() > 0.45;
+      const color = isCyan ? new THREE.Color(0x00f0ff) : new THREE.Color(0x915dff);
+
+      warpColors[i6] = color.r;
+      warpColors[i6 + 1] = color.g;
+      warpColors[i6 + 2] = color.b;
+
+      warpColors[i6 + 3] = color.r * 0.15;
+      warpColors[i6 + 4] = color.g * 0.15;
+      warpColors[i6 + 5] = color.b * 0.15;
+    }
+
+    warpGeo.setAttribute('position', new THREE.BufferAttribute(warpPositions, 3));
+    warpGeo.setAttribute('color', new THREE.BufferAttribute(warpColors, 3));
+
+    const warpMaterial = new THREE.LineBasicMaterial({
+      vertexColors: true,
+      transparent: true,
+      opacity: 0,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+
+    const warpLines = new THREE.LineSegments(warpGeo, warpMaterial);
+    scene.add(warpLines);
 
     // ==========================================
     // 5.5 RADIANT CELESTIAL SUN (CENTRAL STELLAR CORE)
@@ -795,6 +850,33 @@ export default function VoidScene({
         outerCorona.scale.set(pulse, pulse, pulse);
       }
 
+      // Animate Hyperspace Warp Tunnel Streak Lines during travel
+      if (warpMaterial && warpLines) {
+        if (isWarpingRef.current) {
+          warpMaterial.opacity += (0.95 - warpMaterial.opacity) * 0.15;
+          warpLines.rotation.z += 0.045;
+          const posAttr = warpGeo.attributes.position as THREE.BufferAttribute;
+          const arr = posAttr.array as Float32Array;
+          for (let i = 0; i < warpStreakCount; i++) {
+            const zHeadIdx = i * 6 + 2;
+            const zTailIdx = i * 6 + 5;
+            arr[zHeadIdx] += 8.5;
+            arr[zTailIdx] += 8.5;
+            if (arr[zHeadIdx] > 180) {
+              arr[zHeadIdx] = -120;
+              arr[zTailIdx] = -120 + 20 + Math.random() * 30;
+            }
+          }
+          posAttr.needsUpdate = true;
+        } else {
+          if (warpMaterial.opacity > 0.01) {
+            warpMaterial.opacity += (0 - warpMaterial.opacity) * 0.25;
+          } else {
+            warpMaterial.opacity = 0;
+          }
+        }
+      }
+
       // Responsive Orbital Path Glow on Planet Hover
       orbitLinesMap.forEach((line, id) => {
         const isHovered = hoveredRealm?.id === id;
@@ -856,21 +938,66 @@ export default function VoidScene({
         line.geometry.dispose();
         (line.material as THREE.Material).dispose();
       });
+      warpGeo.dispose();
+      warpMaterial.dispose();
       renderer.dispose();
     };
   }, []);
 
-  // Sync Focus / Zoom on Realm Change
+  // Sync Focus / Zoom on Realm Change & Warp Flight
   useEffect(() => {
-    if (!isEntered) {
+    const camera = cameraRef.current;
+
+    if (isWarping) {
+      // 🚀 QUANTUM WARP JUMP ACCELERATION TO NEXUS
       targetLookAtRef.current.set(0, 0, 0);
+
+      // Camera swoops forward with dramatic velocity curve from deep space into orbit (190 -> 54)
       gsap.to(targetSphericalRef.current, {
-        radius: 64,
-        theta: 0,
-        phi: Math.PI / 2.3,
-        duration: 1.6,
+        radius: 54,
+        theta: 0.12,
+        phi: Math.PI / 2.5,
+        duration: 2.1,
         ease: 'power3.inOut',
       });
+
+      // FOV warp stretch: 54° -> 86° (hyperspace tunnel expansion) -> 55° (smooth deceleration docking)
+      if (camera) {
+        gsap.killTweensOf(camera);
+        const tl = gsap.timeline();
+        tl.to(camera, {
+          fov: 86,
+          duration: 0.9,
+          ease: 'power2.in',
+          onUpdate: () => camera.updateProjectionMatrix(),
+        }).to(camera, {
+          fov: 55,
+          duration: 1.2,
+          ease: 'power3.out',
+          onUpdate: () => camera.updateProjectionMatrix(),
+        });
+      }
+      return;
+    }
+
+    if (!isEntered) {
+      // Threshold mode: Far out in deep space
+      targetLookAtRef.current.set(0, 0, 0);
+      gsap.to(targetSphericalRef.current, {
+        radius: 190,
+        theta: -0.35,
+        phi: Math.PI / 2.35,
+        duration: 2.0,
+        ease: 'power3.inOut',
+      });
+      if (camera) {
+        gsap.to(camera, {
+          fov: 54,
+          duration: 1.8,
+          ease: 'power2.out',
+          onUpdate: () => camera.updateProjectionMatrix(),
+        });
+      }
       return;
     }
 
@@ -882,6 +1009,13 @@ export default function VoidScene({
         duration: 1.6,
         ease: 'power3.out',
       });
+      if (camera && Math.abs(camera.fov - 55) > 1) {
+        gsap.to(camera, {
+          fov: 55,
+          duration: 1.0,
+          onUpdate: () => camera.updateProjectionMatrix(),
+        });
+      }
     } else {
       const targetRealm = REALMS.find((r) => r.id === currentRealm);
       if (targetRealm) {
@@ -898,7 +1032,7 @@ export default function VoidScene({
         });
       }
     }
-  }, [currentRealm, isEntered]);
+  }, [currentRealm, isEntered, isWarping]);
 
   return (
     <div ref={containerRef} className="fixed inset-0 w-full h-full overflow-hidden pointer-events-auto">
