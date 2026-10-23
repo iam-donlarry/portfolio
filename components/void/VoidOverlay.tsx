@@ -96,17 +96,6 @@ export default function VoidOverlay({
     setIsPlayingAudio(nextState);
   };
 
-  const getRealmName = () => {
-    if (currentRealm === 'nexus') return 'NEXUS // CORE';
-    const found = REALMS.find((r) => r.id === currentRealm);
-    return found ? found.name.toUpperCase() : 'UNKNOWN SECTOR';
-  };
-
-  const getRealmColor = () => {
-    if (currentRealm === 'nexus') return '#915DFF';
-    const found = REALMS.find((r) => r.id === currentRealm);
-    return found ? found.hexColor : '#915DFF';
-  };
 
   // Aceternity Floating Dock items with realm-specific neon accents
   const dockItems: FloatingDockItem[] = [
@@ -204,7 +193,7 @@ export default function VoidOverlay({
                 onClick={() => {
                   onEnterVoid();
                 }}
-                className="w-full sm:w-auto px-10 py-4 rounded-2xl font-display font-black text-sm uppercase tracking-widest bg-gradient-to-r from-[#915DFF] via-purple-500 to-cyan-400 text-black hover:opacity-95 hover:shadow-[0_0_35px_#915DFF] transition-all transform hover:scale-105 cursor-pointer flex items-center justify-center gap-3"
+                className="w-full sm:w-auto px-10 py-4 rounded-2xl font-display font-black text-sm uppercase tracking-widest bg-[#915DFF] text-white hover:bg-[#7e44f8] hover:shadow-[0_0_35px_#915DFF] transition-all transform hover:scale-105 cursor-pointer flex items-center justify-center gap-3"
               >
                 <span>ENTER THE VOID</span>
                 <FaRocket className="text-xs" />
@@ -279,7 +268,7 @@ export default function VoidOverlay({
                 <div className="px-3.5 py-2 rounded-xl bg-black/70 border border-[#915DFF]/40 backdrop-blur-md shadow-xl flex items-center gap-2.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#915DFF] animate-pulse" />
                   <div className="font-mono text-xs text-slate-200">
-                    <span className="text-[#915DFF] font-bold">THE VOID</span> // {getRealmName()}
+                    <span className="text-[#915DFF] font-bold">THE VOID</span>
                   </div>
                 </div>
 
