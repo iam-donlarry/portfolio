@@ -114,3 +114,13 @@ body {
   background-color: var(--brand);
   color: #000000;
 }
+
+/* Hide scrollbar for clean touch horizontal scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

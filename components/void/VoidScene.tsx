@@ -935,19 +935,6 @@ export default function VoidScene({
           </div>
         </div>
       )}
-
-      {/* Persistent Tactile Mouse Drag Instruction */}
-      {isEntered && currentRealm === 'nexus' && (
-        <div className="fixed bottom-20 left-0 right-0 flex justify-center pointer-events-none z-20">
-          <div className="px-4 py-1.5 rounded-full bg-black/75 border border-white/20 backdrop-blur-md shadow-2xl font-mono text-[11px] text-slate-300 flex items-center gap-2.5">
-            <span className="text-cyan-400">❖ Drag mouse to rotate celestial system</span>
-            <span className="text-slate-500">•</span>
-            <span className="text-purple-300">Scroll to zoom</span>
-            <span className="text-slate-500">•</span>
-            <span className="text-amber-300">Click any planet to inspect</span>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
