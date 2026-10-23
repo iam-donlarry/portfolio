@@ -22,6 +22,7 @@ import {
   FaSatelliteDish,
   FaTimes
 } from 'react-icons/fa';
+import { FloatingDock, FloatingDockItem } from '@/components/ui/floating-dock';
 
 interface VoidOverlayProps {
   currentRealm: RealmId;
@@ -106,6 +107,70 @@ export default function VoidOverlay({
     const found = REALMS.find((r) => r.id === currentRealm);
     return found ? found.hexColor : '#915DFF';
   };
+
+  // Aceternity Floating Dock items with realm-specific neon accents
+  const dockItems: FloatingDockItem[] = [
+    {
+      title: 'Nexus Core [ESC]',
+      icon: <FaCompass className="text-lg" />,
+      onClick: () => {
+        onSelectRealm('nexus');
+        voidAudio.playPulse(330);
+      },
+      isActive: currentRealm === 'nexus',
+      color: '#ffffff',
+    },
+    {
+      title: 'Projects Dimension [1]',
+      icon: <FaRocket className="text-lg" />,
+      onClick: () => {
+        onSelectRealm('projects');
+        voidAudio.playPulse(440);
+      },
+      isActive: currentRealm === 'projects',
+      color: '#00f0ff',
+    },
+    {
+      title: 'Engineering Arsenal [2]',
+      icon: <FaMicrochip className="text-lg" />,
+      onClick: () => {
+        onSelectRealm('skills');
+        voidAudio.playPulse(490);
+      },
+      isActive: currentRealm === 'skills',
+      color: '#915dff',
+    },
+    {
+      title: 'Chrono Archive [3]',
+      icon: <FaHistory className="text-lg" />,
+      onClick: () => {
+        onSelectRealm('experience');
+        voidAudio.playPulse(550);
+      },
+      isActive: currentRealm === 'experience',
+      color: '#ffb020',
+    },
+    {
+      title: 'Architect Sanctum [4]',
+      icon: <FaUserAstronaut className="text-lg" />,
+      onClick: () => {
+        onSelectRealm('about');
+        voidAudio.playPulse(587);
+      },
+      isActive: currentRealm === 'about',
+      color: '#ff2e93',
+    },
+    {
+      title: 'Quantum Transmitter [5]',
+      icon: <FaSatelliteDish className="text-lg" />,
+      onClick: () => {
+        onSelectRealm('contact');
+        voidAudio.playPulse(659);
+      },
+      isActive: currentRealm === 'contact',
+      color: '#10b981',
+    },
+  ];
 
   return (
     <div className="fixed inset-0 pointer-events-none z-20 flex flex-col justify-between">
@@ -358,134 +423,22 @@ export default function VoidOverlay({
       )}
 
       {/* ========================================================= */}
-      {/* 4. BOTTOM SPATIAL NAVIGATOR DOCK */}
+      {/* 4. BOTTOM SPATIAL NAVIGATOR DOCK (ACETERNITY FLOATING DOCK) */}
       {/* ========================================================= */}
       {isEntered && (
-        <footer className="w-full pb-3 sm:pb-6 px-2 sm:px-4 flex flex-col items-center gap-2 pointer-events-auto">
-          {/* Nexus Celestial Navigation Hint (Placed cleanly above dock, not blocking the Sun) */}
+        <footer className="w-full pb-3 sm:pb-5 px-2 sm:px-4 flex flex-col items-center gap-2 pointer-events-auto">
+          {/* Nexus Celestial Navigation Hint */}
           {currentRealm === 'nexus' && (
-            <div className="font-mono text-[10px] sm:text-xs text-slate-300 bg-black/80 border border-white/20 px-3.5 py-1.5 rounded-full backdrop-blur-md shadow-2xl flex items-center gap-1.5 sm:gap-2 text-center max-w-[94vw] overflow-hidden pointer-events-none animate-pulse">
+            <div className="font-mono text-[10px] sm:text-xs text-slate-300 bg-black/80 border border-white/20 px-3.5 py-1.5 rounded-full backdrop-blur-md shadow-2xl flex items-center gap-1.5 sm:gap-2 text-center max-w-[94vw] overflow-hidden pointer-events-none animate-pulse mb-16 md:mb-0">
               <span className="text-cyan-400">❖ Drag to rotate</span>
               <span className="text-slate-500">•</span>
               <span className="hidden sm:inline text-purple-300">Scroll to zoom •</span>
-              <span className="text-amber-300 truncate">Tap or click any realm to explore</span>
+              <span className="text-amber-300 truncate">Tap or click any realm</span>
             </div>
           )}
 
-          <nav
-            aria-label="Spatial Sector Navigation"
-            className="flex items-center gap-1 sm:gap-2 p-1.5 sm:p-2 rounded-2xl bg-black/85 border border-white/15 backdrop-blur-2xl shadow-2xl overflow-x-auto max-w-full no-scrollbar"
-            style={{ WebkitOverflowScrolling: 'touch' }}
-          >
-            {/* Nexus Core Return */}
-            <button
-              onClick={() => {
-                onSelectRealm('nexus');
-                voidAudio.playPulse(330);
-              }}
-              aria-label="Nexus Core"
-              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl font-mono text-[11px] sm:text-xs shrink-0 transition-all cursor-pointer ${
-                currentRealm === 'nexus'
-                  ? 'bg-white/15 text-white border border-white/30 font-bold shadow-lg'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <FaCompass className="text-sm shrink-0" />
-              <span className="hidden sm:inline">Nexus</span>
-            </button>
-
-            <div className="w-px h-5 bg-white/15 mx-0.5 shrink-0" />
-
-            {/* 1. Projects */}
-            <button
-              onClick={() => {
-                onSelectRealm('projects');
-                voidAudio.playPulse(440);
-              }}
-              aria-label="Projects Dimension"
-              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl font-mono text-[11px] sm:text-xs shrink-0 transition-all cursor-pointer ${
-                currentRealm === 'projects'
-                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-400 font-bold shadow-[0_0_15px_rgba(0,240,255,0.4)]'
-                  : 'text-slate-400 hover:text-cyan-300 hover:bg-cyan-500/10'
-              }`}
-            >
-              <FaRocket className="text-cyan-400 text-xs shrink-0" />
-              <span>Projects</span>
-              <span className="hidden md:inline font-mono text-[9px] text-cyan-400/70">[1]</span>
-            </button>
-
-            {/* 2. Skills */}
-            <button
-              onClick={() => {
-                onSelectRealm('skills');
-                voidAudio.playPulse(490);
-              }}
-              aria-label="Engineering Network"
-              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl font-mono text-[11px] sm:text-xs shrink-0 transition-all cursor-pointer ${
-                currentRealm === 'skills'
-                  ? 'bg-[#915DFF]/20 text-[#915DFF] border border-[#915DFF] font-bold shadow-[0_0_15px_rgba(145,93,255,0.4)]'
-                  : 'text-slate-400 hover:text-[#915DFF] hover:bg-[#915DFF]/10'
-              }`}
-            >
-              <FaMicrochip className="text-[#915DFF] text-xs shrink-0" />
-              <span>Skills</span>
-              <span className="hidden md:inline font-mono text-[9px] text-[#915DFF]/70">[2]</span>
-            </button>
-
-            {/* 3. Experience */}
-            <button
-              onClick={() => {
-                onSelectRealm('experience');
-                voidAudio.playPulse(550);
-              }}
-              aria-label="Chrono Archive"
-              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl font-mono text-[11px] sm:text-xs shrink-0 transition-all cursor-pointer ${
-                currentRealm === 'experience'
-                  ? 'bg-amber-500/20 text-amber-300 border border-amber-400 font-bold shadow-[0_0_15px_rgba(255,176,32,0.4)]'
-                  : 'text-slate-400 hover:text-amber-300 hover:bg-amber-500/10'
-              }`}
-            >
-              <FaHistory className="text-amber-400 text-xs shrink-0" />
-              <span>Experience</span>
-              <span className="hidden md:inline font-mono text-[9px] text-amber-400/70">[3]</span>
-            </button>
-
-            {/* 4. About */}
-            <button
-              onClick={() => {
-                onSelectRealm('about');
-                voidAudio.playPulse(587);
-              }}
-              aria-label="Architect Sanctum"
-              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl font-mono text-[11px] sm:text-xs shrink-0 transition-all cursor-pointer ${
-                currentRealm === 'about'
-                  ? 'bg-pink-500/20 text-pink-300 border border-pink-400 font-bold shadow-[0_0_15px_rgba(255,46,147,0.4)]'
-                  : 'text-slate-400 hover:text-pink-300 hover:bg-pink-500/10'
-              }`}
-            >
-              <FaUserAstronaut className="text-pink-400 text-xs shrink-0" />
-              <span>About</span>
-              <span className="hidden md:inline font-mono text-[9px] text-pink-400/70">[4]</span>
-            </button>
-
-            {/* 5. Contact */}
-            <button
-              onClick={() => {
-                onSelectRealm('contact');
-                voidAudio.playPulse(659);
-              }}
-              aria-label="Quantum Transmitter"
-              className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl font-mono text-[11px] sm:text-xs shrink-0 transition-all cursor-pointer ${
-                currentRealm === 'contact'
-                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-400 font-bold shadow-[0_0_15px_rgba(16,185,129,0.4)]'
-                  : 'text-slate-400 hover:text-emerald-300 hover:bg-emerald-500/10'
-              }`}
-            >
-              <FaSatelliteDish className="text-emerald-400 text-xs shrink-0" />
-              <span>Contact</span>
-              <span className="hidden md:inline font-mono text-[9px] text-emerald-400/70">[5]</span>
-            </button>
-          </nav>
+          {/* Aceternity Dynamic Spring Magnification Floating Dock */}
+          <FloatingDock items={dockItems} />
         </footer>
       )}
     </div>
