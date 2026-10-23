@@ -28,6 +28,7 @@ interface VoidOverlayProps {
   onSelectRealm: (realm: RealmId) => void;
   isEntered: boolean;
   onEnterVoid: () => void;
+  onExitVoid?: () => void;
   initialProjectId?: string;
 }
 
@@ -36,6 +37,7 @@ export default function VoidOverlay({
   onSelectRealm,
   isEntered,
   onEnterVoid,
+  onExitVoid,
   initialProjectId,
 }: VoidOverlayProps): React.JSX.Element {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
@@ -56,6 +58,9 @@ export default function VoidOverlay({
       if (e.key === 'Escape' || e.key === '0') {
         if (currentRealm !== 'nexus') {
           onSelectRealm('nexus');
+          voidAudio.playPulse(330);
+        } else if (onExitVoid) {
+          onExitVoid();
           voidAudio.playPulse(330);
         }
       } else if (e.key === '1') {
@@ -127,23 +132,16 @@ export default function VoidOverlay({
             </div>
 
             {/* Enter Primary CTA */}
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="pt-4 flex items-center justify-center">
               <button
                 onClick={() => {
                   onEnterVoid();
                   voidAudio.playPulse(550);
                 }}
-                className="w-full sm:w-auto px-9 py-4 rounded-2xl font-display font-black text-sm uppercase tracking-widest bg-gradient-to-r from-[#915DFF] to-cyan-400 text-black hover:opacity-95 hover:shadow-[0_0_35px_#915DFF] transition-all transform hover:scale-105 cursor-pointer flex items-center justify-center gap-3"
+                className="w-full sm:w-auto px-10 py-4 rounded-2xl font-display font-black text-sm uppercase tracking-widest bg-gradient-to-r from-[#915DFF] via-purple-500 to-cyan-400 text-black hover:opacity-95 hover:shadow-[0_0_35px_#915DFF] transition-all transform hover:scale-105 cursor-pointer flex items-center justify-center gap-3"
               >
                 <span>ENTER THE VOID</span>
                 <FaRocket className="text-xs" />
-              </button>
-
-              <button
-                onClick={onEnterVoid}
-                className="font-mono text-xs text-slate-400 hover:text-white transition-colors cursor-pointer px-4 py-2"
-              >
-                Skip Intro [Instant Access]
               </button>
             </div>
 
@@ -176,11 +174,30 @@ export default function VoidOverlay({
                 </span>
               </button>
             ) : (
-              <div className="px-3.5 py-2 rounded-xl bg-black/70 border border-[#915DFF]/40 backdrop-blur-md shadow-xl flex items-center gap-2.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#915DFF] animate-pulse" />
-                <div className="font-mono text-xs text-slate-200">
-                  <span className="text-[#915DFF] font-bold">THE VOID</span> // {getRealmName()}
+              <div className="flex items-center gap-2.5">
+                <div className="px-3.5 py-2 rounded-xl bg-black/70 border border-[#915DFF]/40 backdrop-blur-md shadow-xl flex items-center gap-2.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#915DFF] animate-pulse" />
+                  <div className="font-mono text-xs text-slate-200">
+                    <span className="text-[#915DFF] font-bold">THE VOID</span> // {getRealmName()}
+                  </div>
                 </div>
+
+                {onExitVoid && (
+                  <button
+                    onClick={() => {
+                      onExitVoid();
+                      voidAudio.playPulse(330);
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-black/70 border border-white/20 hover:border-white text-slate-300 hover:text-white font-mono text-xs transition-all backdrop-blur-md shadow-xl cursor-pointer group"
+                    title="Exit Void and return to Threshold (ESC)"
+                  >
+                    <FaArrowLeft className="text-[10px] group-hover:-translate-x-0.5 transition-transform" />
+                    <span>Exit Void</span>
+                    <span className="hidden sm:inline font-mono text-[9px] text-slate-400 bg-white/10 px-1 py-0.5 rounded">
+                      ESC
+                    </span>
+                  </button>
+                )}
               </div>
             )}
           </div>

@@ -28,7 +28,7 @@ export const REALMS: RealmConfig[] = [
     subtitle: 'Production Systems & Intelligent Agents',
     color: 0x00f0ff,
     hexColor: '#00f0ff',
-    position: [34, 1.5, 0],
+    position: [41.0, 1.5, 0],
     angle: 0,
     texturePath: '/textures/planets/projects_cyan.jpg',
     radius: 2.7,
@@ -56,7 +56,7 @@ export const REALMS: RealmConfig[] = [
     subtitle: 'Career Trajectory & Academic Milestones',
     color: 0xffb020,
     hexColor: '#FFB020',
-    position: [-27.5, 2.0, 20.0],
+    position: [-30.3, 2.0, 22.0],
     angle: (144 * Math.PI) / 180,
     texturePath: '/textures/planets/experience_amber.jpg',
     radius: 3.1,
@@ -70,7 +70,7 @@ export const REALMS: RealmConfig[] = [
     subtitle: 'Engineering Philosophy & Identity',
     color: 0xff2e93,
     hexColor: '#FF2E93',
-    position: [-27.5, -2.5, -20.0],
+    position: [-25.1, -2.5, -18.2],
     angle: (216 * Math.PI) / 180,
     texturePath: '/textures/planets/about_magenta.jpg',
     radius: 2.6,
@@ -84,7 +84,7 @@ export const REALMS: RealmConfig[] = [
     subtitle: 'Direct Communications & Inquiries',
     color: 0x10b981,
     hexColor: '#10B981',
-    position: [10.5, -1.0, -32.3],
+    position: [8.65, -1.0, -26.6],
     angle: (288 * Math.PI) / 180,
     texturePath: '/textures/planets/contact_emerald.jpg',
     radius: 2.7,
@@ -128,7 +128,7 @@ export default function VoidScene({
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const animationFrameRef = useRef<number | null>(null);
   const realmMeshesRef = useRef<Map<RealmId, THREE.Group>>(new Map());
-  const coreGroupRef = useRef<THREE.Group | null>(null);
+  const orbitLinesMapRef = useRef<Map<RealmId, THREE.LineLoop>>(new Map());
 
   // Orbital Navigation State
   const sphericalRef = useRef({
@@ -198,15 +198,16 @@ export default function VoidScene({
     const ambientLight = new THREE.AmbientLight(0x202438, 0.85);
     scene.add(ambientLight);
 
-    const coreLight = new THREE.PointLight(0xd9b3ff, 4.5, 140, 1.2);
-    coreLight.position.set(0, 0, 0);
-    scene.add(coreLight);
+    // Warm radiant illumination emanating from the central Sun
+    const solarLight = new THREE.PointLight(0xfff2d4, 6.0, 220, 1.05);
+    solarLight.position.set(0, 0, 0);
+    scene.add(solarLight);
 
-    const sunLight = new THREE.DirectionalLight(0xffffff, 2.0);
+    const sunLight = new THREE.DirectionalLight(0xffffff, 1.8);
     sunLight.position.set(35, 25, 45);
     scene.add(sunLight);
 
-    const rimLight = new THREE.DirectionalLight(0x4477bb, 0.9);
+    const rimLight = new THREE.DirectionalLight(0x4477bb, 0.85);
     rimLight.position.set(-40, -15, -30);
     scene.add(rimLight);
 
@@ -377,59 +378,142 @@ export default function VoidScene({
     };
 
     // ==========================================
-    // 6. REALISTIC CENTRAL SINGULARITY / BLACK HOLE
+    // 5.5 RADIANT CELESTIAL SUN (CENTRAL STELLAR CORE)
     // ==========================================
-    const coreGroup = new THREE.Group();
-    coreGroupRef.current = coreGroup;
-    scene.add(coreGroup);
+    const createSunTexture = (): THREE.Texture => {
+      const c = document.createElement('canvas');
+      c.width = 512;
+      c.height = 256;
+      const ctx = c.getContext('2d')!;
 
-    // Pure black Event Horizon sphere
-    const horizonGeo = new THREE.SphereGeometry(3.8, 64, 64);
-    const horizonMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
-    const horizonMesh = new THREE.Mesh(horizonGeo, horizonMat);
-    coreGroup.add(horizonMesh);
+      // Deep solar gradient
+      const grad = ctx.createLinearGradient(0, 0, 0, 256);
+      grad.addColorStop(0, '#ff4500');
+      grad.addColorStop(0.25, '#ff8c00');
+      grad.addColorStop(0.5, '#ffa500');
+      grad.addColorStop(0.75, '#ffd700');
+      grad.addColorStop(1, '#ff4500');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 256);
 
-    // Photon Shell
-    const photonGeo = new THREE.SphereGeometry(3.98, 48, 48);
-    const photonMat = new THREE.MeshBasicMaterial({
-      color: 0x915dff,
+      // Cellular solar granules and turbulent plasma
+      for (let i = 0; i < 350; i++) {
+        const x = Math.random() * 512;
+        const y = Math.random() * 256;
+        const rad = 4 + Math.random() * 20;
+        const spotGrad = ctx.createRadialGradient(x, y, 0, x, y, rad);
+        const isBright = Math.random() > 0.35;
+        if (isBright) {
+          spotGrad.addColorStop(0, 'rgba(255, 255, 230, 0.75)');
+          spotGrad.addColorStop(0.5, 'rgba(255, 200, 60, 0.4)');
+          spotGrad.addColorStop(1, 'rgba(255, 140, 0, 0)');
+        } else {
+          spotGrad.addColorStop(0, 'rgba(180, 40, 0, 0.45)');
+          spotGrad.addColorStop(0.6, 'rgba(255, 90, 0, 0.2)');
+          spotGrad.addColorStop(1, 'rgba(255, 140, 0, 0)');
+        }
+        ctx.fillStyle = spotGrad;
+        ctx.beginPath();
+        ctx.arc(x, y, rad, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Solar flare ribbons
+      ctx.strokeStyle = 'rgba(255, 255, 220, 0.3)';
+      ctx.lineWidth = 2.5;
+      for (let j = 0; j < 14; j++) {
+        ctx.beginPath();
+        let qx = Math.random() * 512;
+        let qy = Math.random() * 256;
+        ctx.moveTo(qx, qy);
+        for (let k = 0; k < 4; k++) {
+          qx += (Math.random() - 0.5) * 70;
+          qy += (Math.random() - 0.5) * 35;
+          ctx.lineTo(qx, qy);
+        }
+        ctx.stroke();
+      }
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.wrapT = THREE.ClampToEdgeWrapping;
+      tex.needsUpdate = true;
+      return tex;
+    };
+
+    const sunTexture = createSunTexture();
+    const sunGroup = new THREE.Group();
+    scene.add(sunGroup);
+
+    // 1. Solar Surface Sphere
+    const sunGeo = new THREE.SphereGeometry(5.4, 64, 64);
+    const sunMat = new THREE.MeshBasicMaterial({
+      map: sunTexture,
+    });
+    const sunMesh = new THREE.Mesh(sunGeo, sunMat);
+    sunGroup.add(sunMesh);
+
+    // 2. High-intensity Inner Corona
+    const innerCoronaGeo = new THREE.SphereGeometry(5.82, 48, 48);
+    const innerCoronaMat = new THREE.MeshBasicMaterial({
+      color: 0xffcc33,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.45,
       blending: THREE.AdditiveBlending,
       side: THREE.BackSide,
     });
-    const photonMesh = new THREE.Mesh(photonGeo, photonMat);
-    coreGroup.add(photonMesh);
+    const innerCorona = new THREE.Mesh(innerCoronaGeo, innerCoronaMat);
+    sunGroup.add(innerCorona);
 
-    // Swirling Accretion Disk
-    const accretionDiskTexture = textureLoader.load('/textures/planets/singularity_core.jpg');
-    accretionDiskTexture.wrapS = THREE.RepeatWrapping;
-    accretionDiskTexture.wrapT = THREE.RepeatWrapping;
-
-    const diskGeo = new THREE.RingGeometry(4.4, 15.5, 96);
-    const diskMat = new THREE.MeshBasicMaterial({
-      map: accretionDiskTexture,
-      side: THREE.DoubleSide,
+    // 3. Soft Atmospheric Corona (Radial Flare Shell)
+    const outerCoronaGeo = new THREE.SphereGeometry(6.65, 48, 48);
+    const outerCoronaMat = new THREE.MeshBasicMaterial({
+      color: 0xff6600,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.22,
       blending: THREE.AdditiveBlending,
+      side: THREE.BackSide,
     });
-    const accretionDisk = new THREE.Mesh(diskGeo, diskMat);
-    accretionDisk.rotation.x = Math.PI / 2.3;
-    accretionDisk.rotation.y = Math.PI / 8;
-    coreGroup.add(accretionDisk);
+    const outerCorona = new THREE.Mesh(outerCoronaGeo, outerCoronaMat);
+    sunGroup.add(outerCorona);
 
-    const verticalDiskGeo = new THREE.RingGeometry(4.5, 11.5, 64);
-    const verticalDiskMat = new THREE.MeshBasicMaterial({
-      map: accretionDiskTexture,
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.35,
-      blending: THREE.AdditiveBlending,
+    // ==========================================
+    // 6. CELESTIAL ORBITAL PATHS (CLEAN CURVED LINES)
+    // ==========================================
+    const orbitLinesGroup = new THREE.Group();
+    scene.add(orbitLinesGroup);
+    const orbitLinesMap = new Map<RealmId, THREE.LineLoop>();
+
+    REALMS.forEach((realm) => {
+      const orbitalRadius = Math.sqrt(realm.position[0] ** 2 + realm.position[2] ** 2);
+      const segments = 256;
+      const points: THREE.Vector3[] = [];
+
+      for (let i = 0; i < segments; i++) {
+        const theta = (i / segments) * Math.PI * 2;
+        points.push(
+          new THREE.Vector3(
+            Math.cos(theta) * orbitalRadius,
+            realm.position[1],
+            Math.sin(theta) * orbitalRadius
+          )
+        );
+      }
+
+      const orbitGeo = new THREE.BufferGeometry().setFromPoints(points);
+      const orbitMat = new THREE.LineBasicMaterial({
+        color: realm.color,
+        transparent: true,
+        opacity: 0.35,
+        blending: THREE.AdditiveBlending,
+      });
+
+      const orbitLine = new THREE.LineLoop(orbitGeo, orbitMat);
+      orbitLinesGroup.add(orbitLine);
+      orbitLinesMap.set(realm.id, orbitLine);
     });
-    const verticalDisk = new THREE.Mesh(verticalDiskGeo, verticalDiskMat);
-    verticalDisk.rotation.y = Math.PI / 2;
-    coreGroup.add(verticalDisk);
+
+    orbitLinesMapRef.current = orbitLinesMap;
 
     // ==========================================
     // 7. FIVE REALISTIC 3D TEXTURED PLANETS
@@ -485,21 +569,6 @@ export default function VoidScene({
         planetRing.rotation.x = Math.PI / 2.2;
         planetGroup.add(planetRing);
       }
-
-      // Orbital Track Guide
-      const orbitalTrackRadius = Math.sqrt(realm.position[0] ** 2 + realm.position[2] ** 2);
-      const trackGeo = new THREE.RingGeometry(orbitalTrackRadius - 0.05, orbitalTrackRadius + 0.05, 128);
-      const trackMat = new THREE.MeshBasicMaterial({
-        color: realm.color,
-        side: THREE.DoubleSide,
-        transparent: true,
-        opacity: 0.09,
-        blending: THREE.AdditiveBlending,
-      });
-      const trackMesh = new THREE.Mesh(trackGeo, trackMat);
-      trackMesh.rotation.x = Math.PI / 2;
-      trackMesh.position.y = realm.position[1];
-      scene.add(trackMesh);
 
       // Local Point Light
       const planetLight = new THREE.PointLight(realm.color, 1.8, 14);
@@ -717,11 +786,22 @@ export default function VoidScene({
         }
       });
 
-      // Rotate Black Hole Accretion Disk
-      if (accretionDisk) {
-        accretionDisk.rotation.z = elapsedTime * 0.45;
-        verticalDisk.rotation.z = -elapsedTime * 0.3;
+      // Rotate and Pulse Central Celestial Sun
+      if (sunMesh) {
+        sunMesh.rotation.y += 0.002;
+        innerCorona.rotation.y -= 0.003;
+        innerCorona.rotation.z += 0.001;
+        const pulse = 1.0 + Math.sin(elapsedTime * 2.0) * 0.035;
+        outerCorona.scale.set(pulse, pulse, pulse);
       }
+
+      // Responsive Orbital Path Glow on Planet Hover
+      orbitLinesMap.forEach((line, id) => {
+        const isHovered = hoveredRealm?.id === id;
+        const mat = line.material as THREE.LineBasicMaterial;
+        const targetOpacity = isHovered ? 0.85 : 0.35;
+        mat.opacity += (targetOpacity - mat.opacity) * 0.1;
+      });
 
       // Rotate Planets
       realmMeshesRef.current.forEach((group, id) => {
@@ -765,14 +845,17 @@ export default function VoidScene({
       particleTexture.dispose();
       asteroidGeo.dispose();
       asteroidMat.dispose();
-      horizonGeo.dispose();
-      horizonMat.dispose();
-      photonGeo.dispose();
-      photonMat.dispose();
-      diskGeo.dispose();
-      diskMat.dispose();
-      verticalDiskGeo.dispose();
-      verticalDiskMat.dispose();
+      sunGeo.dispose();
+      sunMat.dispose();
+      sunTexture.dispose();
+      innerCoronaGeo.dispose();
+      innerCoronaMat.dispose();
+      outerCoronaGeo.dispose();
+      outerCoronaMat.dispose();
+      orbitLinesMap.forEach((line) => {
+        line.geometry.dispose();
+        (line.material as THREE.Material).dispose();
+      });
       renderer.dispose();
     };
   }, []);

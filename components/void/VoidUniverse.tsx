@@ -62,6 +62,18 @@ export default function VoidUniverse({
     }
   }, []);
 
+  const handleExitVoid = useCallback(() => {
+    setIsEntered(false);
+    setCurrentRealm('nexus');
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('void_entered');
+      const url = new URL(window.location.href);
+      url.searchParams.delete('dimension');
+      url.searchParams.delete('project');
+      window.history.pushState({}, '', url.toString());
+    }
+  }, []);
+
   // Listen to popstate (browser back/forward buttons)
   useEffect(() => {
     const handlePopState = () => {
@@ -97,6 +109,7 @@ export default function VoidUniverse({
         onSelectRealm={handleSelectRealm}
         isEntered={isEntered}
         onEnterVoid={handleEnterVoid}
+        onExitVoid={handleExitVoid}
         initialProjectId={initialProjectId}
       />
     </div>
