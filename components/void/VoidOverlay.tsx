@@ -23,6 +23,7 @@ import {
   FaTimes
 } from 'react-icons/fa';
 import { FloatingDock, FloatingDockItem } from '@/components/ui/floating-dock';
+import AstronautViewer from './AstronautViewer';
 
 interface VoidOverlayProps {
   currentRealm: RealmId;
@@ -167,41 +168,52 @@ export default function VoidOverlay({
       {/* 1. THE THRESHOLD & QUANTUM WARP FLIGHT OVERLAY */}
       {/* ========================================================= */}
       {!isEntered && !isWarping && (
-        <div className="fixed inset-0 pointer-events-auto bg-black/65 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center z-50 animate-fadeIn">
-          {/* Subtle Ambient Ring */}
-          <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full border border-purple-500/20 animate-spin-slow pointer-events-none" />
-          <div className="absolute w-80 h-80 sm:w-[28rem] sm:h-[28rem] rounded-full border border-cyan-500/10 animate-reverse-spin pointer-events-none" />
+        <div className="fixed inset-0 pointer-events-auto bg-black/70 backdrop-blur-md flex flex-col items-center justify-center p-4 sm:p-6 lg:p-10 z-50 animate-fadeIn overflow-y-auto">
+          {/* Subtle Ambient Rings in Background */}
+          <div className="absolute w-80 h-80 sm:w-[32rem] sm:h-[32rem] rounded-full border border-purple-500/15 animate-spin-slow pointer-events-none" />
+          <div className="absolute w-96 h-96 sm:w-[38rem] sm:h-[38rem] rounded-full border border-cyan-500/10 animate-reverse-spin pointer-events-none" />
 
-          <div className="relative max-w-2xl space-y-6">
-            <div className="inline-flex items-center gap-2.5 font-mono text-[11px] sm:text-xs text-[#915DFF] bg-[#915DFF]/10 border border-[#915DFF]/30 px-4 py-1.5 rounded-full uppercase tracking-widest shadow-[0_0_20px_rgba(145,93,255,0.25)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#915DFF] animate-ping" />
-              <span>SPATIAL REALITY PROTOCOL // ONLINE</span>
+          {/* Main Content: Two-column on desktop, stacked on mobile */}
+          <div className="relative max-w-6xl w-full flex flex-col-reverse lg:flex-row items-center justify-center gap-6 lg:gap-12 my-auto">
+            {/* Left Column: Mission Briefing & CTA */}
+            <div className="flex-1 max-w-xl text-center lg:text-left space-y-5">
+              <div className="inline-flex items-center gap-2.5 font-mono text-[10px] sm:text-xs text-[#915DFF] bg-[#915DFF]/10 border border-[#915DFF]/30 px-3.5 sm:px-4 py-1.5 rounded-full uppercase tracking-widest shadow-[0_0_20px_rgba(145,93,255,0.25)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#915DFF] animate-ping" />
+                <span>SPATIAL REALITY PROTOCOL // ONLINE</span>
+              </div>
+
+              <div className="space-y-3">
+                <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight drop-shadow-[0_10px_35px_rgba(0,0,0,0.85)]">
+                  &quot;I build digital worlds through code.&quot;
+                </h1>
+                <p className="font-mono text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed max-w-lg mx-auto lg:mx-0">
+                  <strong className="text-white font-bold">Quadri Adekunle</strong> — Full-Stack Systems Engineer &amp; Spatial Architect.
+                </p>
+              </div>
+
+              {/* Enter Primary CTA */}
+              <div className="pt-2 flex items-center justify-center lg:justify-start">
+                <button
+                  onClick={() => {
+                    onEnterVoid();
+                  }}
+                  className="w-full sm:w-auto px-9 py-3.5 sm:py-4 rounded-2xl font-display font-black text-xs sm:text-sm uppercase tracking-widest bg-[#915DFF] text-white hover:bg-[#7e44f8] hover:shadow-[0_0_35px_#915DFF] transition-all transform hover:scale-105 cursor-pointer flex items-center justify-center gap-3"
+                >
+                  <span>ENTER THE VOID</span>
+                  <FaRocket className="text-xs" />
+                </button>
+              </div>
+
+              <div className="font-mono text-[9px] sm:text-[10px] text-slate-400/80 pt-1">
+                WebGL 3D Accelerated • Spatial Audio Enabled
+              </div>
             </div>
 
-            <div className="space-y-3">
-              <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-none drop-shadow-[0_10px_35px_rgba(0,0,0,0.8)]">
-                &quot;I build digital worlds through code.&quot;
-              </h1>
-              <p className="font-mono text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
-                <strong className="text-white font-bold">Quadri Adekunle</strong> — Full-Stack Systems Engineer &amp; Spatial Architect.
-              </p>
-            </div>
-
-            {/* Enter Primary CTA */}
-            <div className="pt-4 flex items-center justify-center">
-              <button
-                onClick={() => {
-                  onEnterVoid();
-                }}
-                className="w-full sm:w-auto px-10 py-4 rounded-2xl font-display font-black text-sm uppercase tracking-widest bg-[#915DFF] text-white hover:bg-[#7e44f8] hover:shadow-[0_0_35px_#915DFF] transition-all transform hover:scale-105 cursor-pointer flex items-center justify-center gap-3"
-              >
-                <span>ENTER THE VOID</span>
-                <FaRocket className="text-xs" />
-              </button>
-            </div>
-
-            <div className="font-mono text-[10px] text-slate-500 pt-6">
-              WebGL 3D Accelerated • Spatial Audio Enabled • Built inside Next.js
+            {/* Right Column: Interactive 3D Astronaut Pilot */}
+            <div className="w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-[440px] lg:h-[480px] shrink-0 relative flex items-center justify-center">
+              {/* Radial glow aura behind astronaut */}
+              <div className="absolute inset-2 sm:inset-4 rounded-full bg-gradient-to-tr from-[#915DFF]/25 via-cyan-500/15 to-transparent blur-3xl pointer-events-none" />
+              <AstronautViewer className="w-full h-full" />
             </div>
           </div>
         </div>

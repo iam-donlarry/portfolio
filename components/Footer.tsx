@@ -66,7 +66,7 @@ export default function Footer(): React.JSX.Element {
         {/* Telemetry Strip */}
         <div className="pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-slate-500">
           <div>
-            © {currentYear} Quadri Adekunle. Engineered with Next.js, TypeScript & Tailwind CSS.
+            © {currentYear} Quadri Adekunle. Engineered with TypeScript & Tailwind CSS.
           </div>
 
           <div className="flex gap-5">

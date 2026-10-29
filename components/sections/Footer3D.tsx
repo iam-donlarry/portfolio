@@ -52,7 +52,7 @@ export default function Footer3D(): React.JSX.Element {
 
       <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] text-slate-500">
         <div>© {currentYear} Quadri Adekunle. All rights reserved.</div>
-        <div>Built with Next.js 15, Aceternity 3D & Tailwind CSS.</div>
+        <div>Engineered with Aceternity 3D & Tailwind CSS.</div>
       </div>
     </footer>
   );
